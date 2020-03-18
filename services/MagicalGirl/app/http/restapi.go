@@ -1,7 +1,10 @@
 package http
 
 import (
+	"bytes"
+	"encoding/json"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -34,8 +37,13 @@ type APIResource interface {
 }
 
 type apiheader struct {
-	Stastus string `json:"status"`
+	Status  string `json:"status"`
 	Message string `json:"message"`
+}
+
+type apienvelope struct {
+	Header   apiheader
+	Response interface{}
 }
 
 // APIResourceBase is defined for composition
@@ -63,6 +71,62 @@ func (APIResourceBase) Patch(url string, queries url.Values, body io.Reader) (AP
 
 func (APIResourceBase) Delete(url string, queries url.Values, body io.Reader) (APIStatus, interface{}) {
 	return FailSimple(http.StatusMethodNotAllowed), nil
+}
+
+func APIResourceHandler(resource APIResource) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		b := bytes.NewBuffer(make([]byte, 0))
+		reader := io.TeeReader(r.Body, b)
+		r.Body = ioutil.NopCloser(b)
+		defer r.Body.Close()
+
+		e := r.ParseForm()
+		if e != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		var status APIStatus
+		var data interface{}
+
+		switch r.Method {
+		case options:
+			status, data = resource.Options(r.URL.Path, r.Form, reader)
+		case get:
+			status, data = resource.Get(r.URL.Path, r.Form, reader)
+		case post:
+			status, data = resource.Post(r.URL.Path, r.Form, reader)
+		case put:
+			status, data = resource.Put(r.URL.Path, r.Form, reader)
+		case patch:
+			status, data = resource.Patch(r.URL.Path, r.Form, reader)
+		case delete:
+			status, data = resource.Delete(r.URL.Path, r.Form, reader)
+		default:
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
+		// Return API response
+		var content []byte
+
+		if !status.success {
+			content, e = json.Marshal(apienvelope{
+				Header: apiheader{Status: "fail", Message: status.message},
+			})
+		} else {
+			content, e = json.Marshal(apienvelope{
+				Header:   apiheader{Status: "success"},
+				Response: data,
+			})
+		}
+		if e != nil {
+			http.Error(w, e.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(status.code)
+		w.Write(content)
+	}
 }
 
 func Success(code int) APIStatus {
