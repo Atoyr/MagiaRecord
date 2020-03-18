@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"net/url"
 
-	util "github.com/atoyr/MagiaRecord/services/MagicalGirl/app/http"
 	"github.com/atoyr/MagiaRecord/services/MagicalGirl/app/models"
+	util "github.com/atoyr/MagiaRecord/services/http"
 )
 
 type magicalGirlController struct {

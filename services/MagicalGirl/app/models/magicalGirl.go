@@ -10,7 +10,8 @@ const (
 )
 
 type MagicalGirl struct {
-	ID   string
-	Name string
-	Type string
+	ID       string
+	Name     string
+	KanaName string
+	Type     string
 }
