@@ -10,8 +10,8 @@ const (
 )
 
 type MagicalGirl struct {
-	ID       string
-	Name     string
-	KanaName string
-	Type     string
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	KanaName string `json:"kana_name"`
+	Type     string `json:"type"`
 }
