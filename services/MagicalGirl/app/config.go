@@ -19,7 +19,7 @@ var (
 	c Config
 )
 
-func New() Config {
+func NewConfig() Config {
 	once.Do(func() {
 		c = Config{}
 	})
