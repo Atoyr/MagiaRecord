@@ -27,6 +27,16 @@ type MagicalGirl struct {
 	Type      string `json:"type"`
 }
 
+type Attribute struct {
+	ID   int
+	Name string
+}
+
+type Type struct {
+	ID   int
+	Name string
+}
+
 func GetMagicalGirlAll() ([]MagicalGirl, error) {
 	c := app.NewConfig()
 	var err error
@@ -43,22 +53,23 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 	}
 
 	ctx = context.Background()
-	rows, err := db.QueryContext(ctx, "")
+	mgrows, err := db.QueryContext(ctx, "")
 	if err != nil {
 		return nil, err
 	}
 
 	magicalGirls := make([]MagicalGirl, 0)
-	defer rows.Close()
-	for rows.Next() {
+	defer mgrows.Close()
+	for mgrows.Next() {
 		mg := MagicalGirl{}
-		if err = rows.Scan(
+		var attributeID, typeID int
+		if err = mgrows.Scan(
 			&mg.ID,
 			&mg.Name,
 			&mg.Version,
 			&mg.RomanName,
-			&mg.Attribute,
-			&mg.Type,
+			&attributeID,
+			&typeID,
 		); err != nil {
 			return nil, err
 		}
