@@ -4,8 +4,8 @@ create table MagicalGirl (
   Name nvarchar(100) NOT NULL,
   Version nvarchar(50) NOT NULL,
   RomanName nvarchar(100) NOT NULL,
-  Attribute nvarchar(5) NOT NULL,
-  Type nvarchar(10) NOT NULL,
+  AttributeID nvarchar(5) NOT NULL,
+  TypeID nvarchar(10) NOT NULL,
   CONSTRAINT PK_MagicalGirl PRIMARY KEY NONCLUSTERED(
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)

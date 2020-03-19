@@ -27,16 +27,6 @@ type MagicalGirl struct {
 	Type      string `json:"type"`
 }
 
-type Attribute struct {
-	ID   int
-	Name string
-}
-
-type Type struct {
-	ID   int
-	Name string
-}
-
 func GetMagicalGirlAll() ([]MagicalGirl, error) {
 	c := app.NewConfig()
 	var err error
@@ -52,14 +42,55 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 		return nil, err
 	}
 
+	// Get Attribute
 	ctx = context.Background()
-	mgrows, err := db.QueryContext(ctx, "")
+	attrrows, err := db.QueryContext(ctx, selectAttributeQuery)
 	if err != nil {
 		return nil, err
 	}
+	defer attrrows.Close()
+	attributes := make(map[int]string, 0)
+	for attributes.Next() {
+		var id int
+		var name string
+		if err = attrrows.Scan(
+			&id,
+			&name,
+		); err != nil {
+			return nil, err
+		}
+		attributes[id] = name
+	}
+
+	// Get Type
+	ctx = context.Background()
+	attrrows, err := db.QueryContext(ctx, selectTypeQuery)
+	if err != nil {
+		return nil, err
+	}
+	defer typerows.Close()
+	types := make(map[int]string, 0)
+	for types.Next() {
+		var id int
+		var name string
+		if err = typerows.Scan(
+			&id,
+			&name,
+		); err != nil {
+			return nil, err
+		}
+		types[id] = name
+	}
+
+	// Get Magical Girl
+	ctx = context.Background()
+	mgrows, err := db.QueryContext(ctx, selectMagicalGirlQuery)
+	if err != nil {
+		return nil, err
+	}
+	defer mgrows.Close()
 
 	magicalGirls := make([]MagicalGirl, 0)
-	defer mgrows.Close()
 	for mgrows.Next() {
 		mg := MagicalGirl{}
 		var attributeID, typeID int
@@ -73,6 +104,8 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 		); err != nil {
 			return nil, err
 		}
+		mg.Attribute = attributes[attributeID]
+		mg.Type = types[typeID]
 
 		magicalGirls = append(magicalGirls, mg)
 	}
