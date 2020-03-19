@@ -5,6 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/atoyr/MagiaRecord/services/MagicalGirl/app"
+	_ "github.com/denisenkom/go-mssqldb"
 )
 
 const (
@@ -34,12 +35,14 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 	if err != nil {
 
 	}
-	ctx := context.Background()
+	var ctx context.Context
+	ctx = context.Background()
 	err = db.PingContext(ctx)
 	if err != nil {
 		return nil, err
 	}
 
+	ctx = context.Background()
 	rows, err := db.QueryContext(ctx, "")
 	if err != nil {
 		return nil, err
