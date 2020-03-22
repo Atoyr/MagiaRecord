@@ -6,11 +6,15 @@ import (
 )
 
 type Config struct {
-	Server   string
-	Port     uint16
-	User     string
-	Password string
-	Database string
+	Name             string
+	HttpPort         uint16
+	DatabaseServer   string
+	DatabasePort     uint16
+	DatabaseUser     string
+	DatabasePassword string
+	UsingDatabase    string
+	LogLevel         int
+	AcceccLog        bool
 }
 
 var (
@@ -28,5 +32,5 @@ func NewConfig() Config {
 }
 
 func (c *Config) ConnString() string {
-	return fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;", c.Server, c.User, c.Password, c.Port, c.Database)
+	return fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;", c.DatabaseServer, c.DatabaseUser, c.DatabasePassword, c.DatabasePort, c.UsingDatabase)
 }
