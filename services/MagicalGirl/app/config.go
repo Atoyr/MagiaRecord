@@ -7,9 +7,9 @@ import (
 
 type Config struct {
 	Name             string
-	HttpPort         uint16
+	HttpPort         uint
 	DatabaseServer   string
-	DatabasePort     uint16
+	DatabasePort     uint
 	DatabaseUser     string
 	DatabasePassword string
 	UsingDatabase    string

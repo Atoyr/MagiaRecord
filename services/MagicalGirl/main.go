@@ -16,15 +16,60 @@ func main() {
 	app.Version = version
 
 	var httpPort uint
+	var databaseServer string
+	var databasePort uint
+	var databaseUser string
+	var databasePassword string
+	var usingDatabase string
 
 	app.Flags = []cli.Flag{
 		&cli.UintFlag{
-			Name:        "HttpPort",
-			Aliases:     []string{"p"},
+			Name:        "http-port",
+			Aliases:     []string{"H"},
 			Value:       8080,
-			EnvVars:     []string{"HTTPPORT"},
+			EnvVars:     []string{"HTTP_PORT"},
 			Destination: &httpPort,
 			Required:    false,
+		},
+		&cli.StringFlag{
+			Name:        "db-server",
+			Aliases:     []string{"s"},
+			Value:       "",
+			EnvVars:     []string{"DB_SERVER"},
+			Destination: &databaseServer,
+			Required:    true,
+		},
+		&cli.UintFlag{
+			Name:        "db-port",
+			Aliases:     []string{"P"},
+			Value:       3306,
+			EnvVars:     []string{"DB_PORT"},
+			Destination: &databasePort,
+			Required:    false,
+		},
+		&cli.StringFlag{
+			Name:        "db-user",
+			Aliases:     []string{"u"},
+			Value:       "root",
+			EnvVars:     []string{"DB_USER"},
+			Destination: &databaseUser,
+			Required:    false,
+		},
+		&cli.StringFlag{
+			Name:        "db-password",
+			Aliases:     []string{"p"},
+			Value:       "",
+			EnvVars:     []string{"DB_PASSWORD"},
+			Destination: &databasePassword,
+			Required:    true,
+		},
+		&cli.StringFlag{
+			Name:        "using-db",
+			Aliases:     []string{"U"},
+			Value:       "",
+			EnvVars:     []string{"USING_DATABASE"},
+			Destination: &usingDatabase,
+			Required:    true,
 		},
 	}
 
