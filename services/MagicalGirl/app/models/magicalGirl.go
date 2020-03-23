@@ -50,7 +50,7 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 	}
 	defer attrrows.Close()
 	attributes := make(map[int]string, 0)
-	for attributes.Next() {
+	for attrrows.Next() {
 		var id int
 		var name string
 		if err = attrrows.Scan(
@@ -64,13 +64,13 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 
 	// Get Type
 	ctx = context.Background()
-	attrrows, err := db.QueryContext(ctx, selectTypeQuery)
+	typerows, err := db.QueryContext(ctx, selectTypeQuery)
 	if err != nil {
 		return nil, err
 	}
 	defer typerows.Close()
 	types := make(map[int]string, 0)
-	for types.Next() {
+	for typerows.Next() {
 		var id int
 		var name string
 		if err = typerows.Scan(
