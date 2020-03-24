@@ -4,14 +4,14 @@ const selectAttributeQuery = `
   select 
     ID,
     Name
-  from Magia.dbo.Attribute
+  from Attribute
 `
 
 const selectTypeQuery = `
   select 
     ID,
     Name
-  from Magia.dbo.Type
+  from Type
 `
 
 const selectMagicalGirlQuery = `
@@ -22,5 +22,5 @@ const selectMagicalGirlQuery = `
     RomanName,
     AttributeID,
     TypeID
-  from Magia.dbo.MagicalGirl
+  from MagicalGirl
 `

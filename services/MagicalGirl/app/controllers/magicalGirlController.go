@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 
@@ -14,9 +16,14 @@ type magicalGirlController struct {
 }
 
 func init() {
-	http.Handle("/MagicalGirl/", util.APIResourceHandler(magicalGirlController{}))
+	http.Handle("/MagicalGirl", util.APIResourceHandler(magicalGirlController{}))
 }
 
 func (c magicalGirlController) Get(url string, queries url.Values, body io.Reader) (util.APIStatus, interface{}) {
-	return util.Success(http.StatusOK), models.MagicalGirl{}
+	magicalGirls, err := models.GetMagicalGirlAll()
+	if err != nil {
+		log.Println(err)
+		return util.Fail(http.StatusNotFound, fmt.Sprintln(err)), nil
+	}
+	return util.Success(http.StatusOK), magicalGirls
 }

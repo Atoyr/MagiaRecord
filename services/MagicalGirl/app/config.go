@@ -23,12 +23,12 @@ var (
 	c Config
 )
 
-func NewConfig() Config {
+func NewConfig() *Config {
 	once.Do(func() {
 		c = Config{}
 	})
 
-	return c
+	return &c
 }
 
 func (c *Config) ConnString() string {

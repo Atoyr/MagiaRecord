@@ -1,9 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 
+	mg "github.com/atoyr/MagiaRecord/services/MagicalGirl/app"
+	_ "github.com/atoyr/MagiaRecord/services/MagicalGirl/app/controllers"
 	"github.com/urfave/cli/v2"
 )
 
@@ -71,6 +75,22 @@ func main() {
 			Destination: &usingDatabase,
 			Required:    true,
 		},
+	}
+
+	app.Action = func(c *cli.Context) error {
+		conf := mg.NewConfig()
+		conf.HttpPort = httpPort
+		conf.DatabaseServer = databaseServer
+		conf.DatabasePort = databasePort
+		conf.DatabaseUser = databaseUser
+		conf.DatabasePassword = databasePassword
+		conf.UsingDatabase = usingDatabase
+
+		e := http.ListenAndServe(fmt.Sprintf(":%d", conf.HttpPort), nil)
+		if e != nil {
+			log.Println(e)
+		}
+		return nil
 	}
 
 	err := app.Run(os.Args)
