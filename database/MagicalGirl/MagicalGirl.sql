@@ -1,4 +1,3 @@
-use Magia
 create table MagicalGirl (
   ID int IDENTITY(1,1) NOT NULL,
   Name nvarchar(100) NOT NULL,
