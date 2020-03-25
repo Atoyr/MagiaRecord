@@ -48,7 +48,7 @@ func GetAttributeAll() ([]Attribute, error) {
 			return nil, err
 		}
 
-		attributes = append(attributes, t)
+		attributes = append(attributes, a)
 	}
 
 	return attributes, nil

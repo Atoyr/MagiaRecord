@@ -16,10 +16,10 @@ type attributeController struct {
 }
 
 func init() {
-	http.Handle("/Attribute", util.APIResourceHandler(typeController{}))
+	http.Handle("/Attribute", util.APIResourceHandler(attributeController{}))
 }
 
-func (c typeController) Get(url string, queries url.Values, body io.Reader) (util.APIStatus, interface{}) {
+func (c attributeController) Get(url string, queries url.Values, body io.Reader) (util.APIStatus, interface{}) {
 	attributes, err := models.GetAttributeAll()
 	if err != nil {
 		log.Println(err)
