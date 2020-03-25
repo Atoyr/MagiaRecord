@@ -20,7 +20,7 @@ func init() {
 }
 
 func (c typeController) Get(url string, queries url.Values, body io.Reader) (util.APIStatus, interface{}) {
-	types, err := models.GetMagicalGirlAll()
+	types, err := models.GetTypeAll()
 	if err != nil {
 		log.Println(err)
 		return util.Fail(http.StatusNotFound, fmt.Sprintln(err)), nil
