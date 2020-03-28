@@ -13,5 +13,5 @@ message GetMagicalGirlResponce {
 
 
 service getMagicalGirlService {
-  rpc GetMagcalGirl(GetMagicalGirlParam) return (GetMagicalGirlPResponce)
+  rpc GetMagcalGirl(GetMagicalGirlParam) returns (GetMagicalGirlResponce);
 }
