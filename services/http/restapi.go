@@ -10,15 +10,6 @@ import (
 	"strconv"
 )
 
-const (
-	options = "OPTIONS"
-	get     = "GET"
-	post    = "POST"
-	put     = "PUT"
-	patch   = "PATCH"
-	delete  = "DELETE"
-)
-
 // APIStatus represents API's result status
 type APIStatus struct {
 	success bool
@@ -90,17 +81,17 @@ func APIResourceHandler(resource APIResource) http.HandlerFunc {
 		var data interface{}
 
 		switch r.Method {
-		case options:
+		case http.MethodOptions:
 			status, data = resource.Options(r.URL.Path, r.Form, reader)
-		case get:
+		case http.MethodGet:
 			status, data = resource.Get(r.URL.Path, r.Form, reader)
-		case post:
+		case http.MethodPost:
 			status, data = resource.Post(r.URL.Path, r.Form, reader)
-		case put:
+		case http.MethodPut:
 			status, data = resource.Put(r.URL.Path, r.Form, reader)
-		case patch:
+		case http.MethodPatch:
 			status, data = resource.Patch(r.URL.Path, r.Form, reader)
-		case delete:
+		case http.MethodDelete:
 			status, data = resource.Delete(r.URL.Path, r.Form, reader)
 		default:
 			w.WriteHeader(http.StatusMethodNotAllowed)
