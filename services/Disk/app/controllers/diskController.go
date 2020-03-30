@@ -20,10 +20,15 @@ func init() {
 }
 
 func (c diskController) Get(url string, queries url.Values, body io.Reader) (util.APIStatus, interface{}) {
-	disks, err := models.GetDiskAll()
-	if err != nil {
-		log.Println(err)
-		return util.Fail(http.StatusNotFound, fmt.Sprintln(err)), nil
+	var disks []models.Disk
+	var err error
+
+	if len(queries) == 0 {
+		disks, err = models.GetDiskAll()
+		if err != nil {
+			log.Println(err)
+			return util.Fail(http.StatusInternalServerError, fmt.Sprintln(err)), nil
+		}
 	}
 	return util.Success(http.StatusOK), disks
 }
