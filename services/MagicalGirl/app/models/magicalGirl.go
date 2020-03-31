@@ -17,9 +17,6 @@ type MagicalGirl struct {
 	AttributeID int    `json:"attribute_id"`
 	TypeID      int    `json:"type_id"`
 	DiskID      int    `json:"disk_id"`
-	ConnectID   int    `json:"connect_id"`
-	MagiaID     int    `json:"magia_id"`
-	DoppelID    int    `json:"doppel_id"`
 }
 
 func GetMagicalGirlAll() ([]MagicalGirl, error) {
@@ -56,9 +53,6 @@ func GetMagicalGirlAll() ([]MagicalGirl, error) {
 			&mg.AttributeID,
 			&mg.TypeID,
 			&mg.DiskID,
-			&mg.ConnectID,
-			&mg.MagiaID,
-			&mg.DoppelID,
 		); err != nil {
 			return nil, err
 		}

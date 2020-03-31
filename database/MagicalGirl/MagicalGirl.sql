@@ -6,9 +6,6 @@ create table MagicalGirl (
   AttributeID int NOT NULL,
   TypeID int NOT NULL,
   DiskID int NOT NULL,
-  ConnectID int NOT NULL,
-  MagiaID int NOT NULL,
-  DoppelID int NOT NULL,
   CONSTRAINT PK_MagicalGirl PRIMARY KEY NONCLUSTERED(
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
