@@ -4,8 +4,12 @@
 package app
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -161,4 +165,84 @@ var fileDescriptor_e0f9056a14b86d47 = []byte{
 	0x88, 0x45, 0x30, 0x47, 0x4b, 0x80, 0x4d, 0xc2, 0xe2, 0x26, 0x29, 0x69, 0x2c, 0x32, 0x30, 0x67,
 	0x25, 0xb1, 0x81, 0x83, 0xc1, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x1d, 0xb5, 0x61, 0x4f, 0x13,
 	0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// GetMagicalGirlServiceClient is the client API for GetMagicalGirlService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type GetMagicalGirlServiceClient interface {
+	GetMagcalGirl(ctx context.Context, in *GetMagicalGirlParam, opts ...grpc.CallOption) (*GetMagicalGirlResponce, error)
+}
+
+type getMagicalGirlServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewGetMagicalGirlServiceClient(cc grpc.ClientConnInterface) GetMagicalGirlServiceClient {
+	return &getMagicalGirlServiceClient{cc}
+}
+
+func (c *getMagicalGirlServiceClient) GetMagcalGirl(ctx context.Context, in *GetMagicalGirlParam, opts ...grpc.CallOption) (*GetMagicalGirlResponce, error) {
+	out := new(GetMagicalGirlResponce)
+	err := c.cc.Invoke(ctx, "/app.getMagicalGirlService/GetMagcalGirl", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GetMagicalGirlServiceServer is the server API for GetMagicalGirlService service.
+type GetMagicalGirlServiceServer interface {
+	GetMagcalGirl(context.Context, *GetMagicalGirlParam) (*GetMagicalGirlResponce, error)
+}
+
+// UnimplementedGetMagicalGirlServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedGetMagicalGirlServiceServer struct {
+}
+
+func (*UnimplementedGetMagicalGirlServiceServer) GetMagcalGirl(ctx context.Context, req *GetMagicalGirlParam) (*GetMagicalGirlResponce, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMagcalGirl not implemented")
+}
+
+func RegisterGetMagicalGirlServiceServer(s *grpc.Server, srv GetMagicalGirlServiceServer) {
+	s.RegisterService(&_GetMagicalGirlService_serviceDesc, srv)
+}
+
+func _GetMagicalGirlService_GetMagcalGirl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMagicalGirlParam)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GetMagicalGirlServiceServer).GetMagcalGirl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/app.getMagicalGirlService/GetMagcalGirl",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GetMagicalGirlServiceServer).GetMagcalGirl(ctx, req.(*GetMagicalGirlParam))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _GetMagicalGirlService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "app.getMagicalGirlService",
+	HandlerType: (*GetMagicalGirlServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetMagcalGirl",
+			Handler:    _GetMagicalGirlService_GetMagcalGirl_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "app.proto",
 }
