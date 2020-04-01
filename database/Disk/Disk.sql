@@ -8,4 +8,7 @@ create table Disk (
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF)
 );
+GO
 
+insert into SystemVersion values('Disk',0,0,0);
+GO

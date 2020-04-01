@@ -1,3 +1,4 @@
+begin tran
 insert into Disk values(0,0,0,0,0)
 insert into Disk values(1,1,0,1,3)
 insert into Disk values(2,1,1,0,3)
@@ -16,3 +17,6 @@ insert into Disk values(14,2,1,0,2)
 insert into Disk values(15,3,0,1,1)
 insert into Disk values(16,3,1,0,1)
 
+update SystemVersion set Revison = 1 where TableName = 'Disk'
+
+commit tran

@@ -6,3 +6,6 @@ create table Type (
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF)
 );
+GO
+insert into SystemVersion values('Type',0,0,0);
+GO
