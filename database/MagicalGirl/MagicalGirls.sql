@@ -1,4 +1,4 @@
-create table MagicalGirl (
+create table MagicalGirls (
   ID int IDENTITY(1,1) NOT NULL,
   Name nvarchar(100) NOT NULL,
   Version nvarchar(50) NOT NULL,
@@ -11,9 +11,9 @@ create table MagicalGirl (
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
 )
 GO
-CREATE CLUSTERED INDEX IDX_RomanName ON MagicalGirl(
+CREATE CLUSTERED INDEX IDX_RomanName ON MagicalGirls(
   RomanName ASC
 )WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
 GO
-insert into SystemVersion values('MagicalGirl',0,0,0);
+insert into SystemVersion values('MagicalGirls',0,0,0);
 GO

@@ -1,4 +1,4 @@
-create table Type (
+create table Types (
   ID int NOT NULL,
   SystemName nvarchar(25),
   Name nvarchar(25),
@@ -7,5 +7,5 @@ create table Type (
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF)
 );
 GO
-insert into SystemVersion values('Type',0,0,0);
+insert into SystemVersion values('Types',0,0,0);
 GO

@@ -1,4 +1,4 @@
-create table Disk (
+create table Disks (
   ID int NOT NULL,
   Accele tinyint,
   BlastH tinyint,
@@ -10,5 +10,5 @@ create table Disk (
 );
 GO
 
-insert into SystemVersion values('Disk',0,0,0);
+insert into SystemVersion values('Disks',0,0,0);
 GO
