@@ -1,10 +1,10 @@
 # MagiaRecord
 
-> My extraordinary Nuxt.js project
+> My stunning Nuxt.js project
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
 
