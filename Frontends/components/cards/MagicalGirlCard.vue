@@ -1,21 +1,22 @@
 <template>
-  <div>
-    <h2>foo</h2>
-    <v-row>
-    <MagicalGirlCard />
-    <MagicalGirlCard />
-    </v-row>
-  </div>
+  <v-col cols=12 md="6" class="Card">
+    <v-card class="px-4 py-2">
+      <v-card-title>
+        Magical Girls
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="magicalGirls"
+        :items-per-page="5">
+      </v-data-table>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import MagicalGirlCard from  '@/components/cards/MagicalGirlCard.vue'
 
 export default {
-  components : {
-    MagicalGirlCard
-  },
   computed: {
     ...mapState(['magicalGirls'])
   },
