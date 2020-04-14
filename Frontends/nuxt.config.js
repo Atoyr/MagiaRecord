@@ -18,11 +18,12 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  //loading: { color: '#fff' },
   /*
   ** Global CSS
   */
   css: [
+    '~/assets/global.scss', 
   ],
   /*
   ** Plugins to load before mounting the App
@@ -40,6 +41,13 @@ export default {
   */
   modules: [
   ],
+  /*
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+  },
   /*
   ** Build configuration
   */
