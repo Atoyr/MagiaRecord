@@ -46,8 +46,36 @@ const MAGICAL_GIRLS = [
         },
       ]
 
+const ATTRIBUTE_COUNT = [
+  {
+    attribute: 'fire',
+    count: 1
+  },
+  {
+    attribute: 'aqua',
+    count: 1
+  },
+  {
+    attribute: 'folest',
+    count: 1
+  },
+  {
+    attribute: 'dark',
+    count: 1
+  },
+  {
+    attribute: 'light',
+    count: 1
+  },
+]
+
 export const state = () => ({
-  magicalGirls : []
+  magicalGirls : [],
+  attributes : [ ],
+  attributeChartData : {
+    datasets: [],
+    labels: [],
+  }
 })
 
 export const mutations = {
@@ -56,11 +84,33 @@ export const mutations = {
   },
   updateMagicalGirls(state, magicalGirls) {
     state.magicalGirls = magicalGirls
+  },
+  updateAttributes(state, attributes) {
+    state.attributes = attributes
+    const count = [];
+    const labels = [];
+    attributes.forEach(a => {
+        count.push(a.count)
+        labels.push(a.attribute)
+      });
+    state.attributeChartData.datasets = [{
+      data: count
+    }];
+    state.attributeChartData.labels = labels;
+  },
+}
+
+export const getters = {
+  getAttributes(state) {
+    return state.attributes
   }
 }
 
 export const actions = {
   fetchMagicalGirls({commit}) {
     commit('updateMagicalGirls', MAGICAL_GIRLS)
+  },
+  fetchAttributes({commit}) {
+    commit('updateAttributes', ATTRIBUTE_COUNT)
   }
 }

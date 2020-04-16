@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2>foo</h2>
+    <h2>マギアレコード データベース</h2>
     <v-row>
-    <MagicalGirlCard />
-    <MagicalGirlCard />
+    <AttributeChartCard size="3" />
+    <MagicalGirlCard size="12"/>
     </v-row>
   </div>
 </template>
@@ -11,16 +11,19 @@
 <script>
 import { mapState } from 'vuex'
 import MagicalGirlCard from  '@/components/cards/MagicalGirlCard.vue'
+import AttributeChartCard from  '@/components/cards/AttributeChartCard.vue'
 
 export default {
   components : {
-    MagicalGirlCard
+    MagicalGirlCard,
+    AttributeChart
   },
   computed: {
     ...mapState(['magicalGirls'])
   },
   async fetch ({ store, params }) {
     await store.dispatch('fetchMagicalGirls');
+    await store.dispatch('fetchAttributes');
   },
   data() {
     return {

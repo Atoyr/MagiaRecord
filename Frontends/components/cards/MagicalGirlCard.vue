@@ -1,10 +1,11 @@
 <template>
-  <v-col cols=12 md="6" class="Card">
+  <v-col cols=12 :md="size" class="Card">
     <v-card class="px-4 py-2">
-      <v-card-title>
-        Magical Girls
+      <v-card-title >
+        魔法少女
       </v-card-title>
       <v-data-table
+        dense
         :headers="headers"
         :items="magicalGirls"
         :items-per-page="5">
@@ -23,6 +24,9 @@ export default {
   async fetch ({ store, params }) {
     await store.dispatch('fetchMagicalGirls');
   },
+  props: {
+    size: Number
+  },
   data() {
     return {
       headers: [
@@ -34,13 +38,13 @@ export default {
           width: 0,
         },
         {
-          text: 'name',
+          text: '名前',
           align: 'start',
           sortable: true,
           value: 'name',
         },
-        { text: 'Attribute', value: 'attribute' },
-        { text: 'Type', value: 'type' },
+        { text: '属性', value: 'attribute' },
+        { text: 'タイプ', value: 'type' },
         { text: 'HP', value: 'hp' },
         { text: 'Attack', value: 'attack' },
         { text: 'Deffence', value: 'deffence' },
