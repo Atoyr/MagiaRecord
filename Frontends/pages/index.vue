@@ -16,7 +16,7 @@ import AttributeChartCard from  '@/components/cards/AttributeChartCard.vue'
 export default {
   components : {
     MagicalGirlCard,
-    AttributeChart
+    AttributeChartCard
   },
   computed: {
     ...mapState(['magicalGirls'])

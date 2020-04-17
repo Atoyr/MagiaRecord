@@ -1,6 +1,6 @@
 <template>
-  <v-col cols=12 :md="size" class="Card">
-    <v-card class="px-4 py-2">
+  <v-col cols=12 :md="size" >
+    <v-card class="px-4 py-2" color="#f5f5f5">
       <v-card-title >
         属性割合
       </v-card-title>
@@ -83,5 +83,3 @@ export default {
   },
 }
 </script>
-
-
