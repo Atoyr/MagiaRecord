@@ -4,6 +4,7 @@
     <v-row>
     <AttributeChartCard size="3" />
     <MagicalGirlCard size="12"/>
+    <Filter />
     </v-row>
   </div>
 </template>
@@ -16,7 +17,7 @@ import AttributeChartCard from  '@/components/cards/AttributeChartCard.vue'
 export default {
   components : {
     MagicalGirlCard,
-    AttributeChartCard
+    AttributeChartCard,
   },
   computed: {
     ...mapState(['magicalGirls'])
