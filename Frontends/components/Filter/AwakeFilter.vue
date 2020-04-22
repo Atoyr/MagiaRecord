@@ -3,26 +3,23 @@
       <v-row class="vrow" no-gutters>
         <v-col col=12 md=8 >
           <div class="label-left">
-          属性
+          精神強化
           </div>
         </v-col>
         <v-col col=12 md=4>
           <div class="label-right">
-            <v-checkbox v-model="selectAll" :readonly="selectAll" class="check-all" >
+            <v-checkbox v-model="selectAll" :readonly="selectAll" class="check-all">
               <template v-slot:label>
-                all
+                <p>all</p>
               </template>
             </v-checkbox>
           </div>
         </v-col>
       </v-row>
       <v-row>
-        <template v-for="(attribute,i) in attributes">
-          <v-col :key="attribute">
-            <v-checkbox color="pink lighten-1"  v-model="checkAttributes" :value="attribute">
-              <template v-slot:label>
-                <AttributeImage :attribute="attribute" />
-              </template>
+        <template v-for="(awake,i) in awakes">
+          <v-col :key="i">
+            <v-checkbox color="pink lighten-1"  v-model="checkAwakes" :value="i" :label="awake">
             </v-checkbox>
           </v-col>
         </template>
@@ -31,15 +28,11 @@
 </template>
 
 <script>
-import AttributeImage from '@/components/AttributeImage.vue'
 export default {
-  components : {
-    AttributeImage
-  },
   computed: {
     selectAll: {
       get: function() {
-        if(this.checkAttributes.length == 0 ){
+        if(this.checkAwakes.length == 0 ){
           return true;
         }else{
           return false;
@@ -47,15 +40,15 @@ export default {
       },
       set: function(value) {
         if (value) {
-          this.checkAttributes = [];
+          this.checkAwakes = [];
         }
       }
     }
   },
   data()  {
     return {
-      checkAttributes: [],
-      attributes: ["flame","aqua","forest","dark","light","void"]
+      checkAwakes: [],
+      awakes: ["解放済み","未解放"]
     }
   }
 }
@@ -123,5 +116,6 @@ export default {
 }
 
 </style>
+
 
 

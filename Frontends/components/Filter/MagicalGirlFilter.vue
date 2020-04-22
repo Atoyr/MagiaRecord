@@ -6,7 +6,7 @@
           <AttributeFilter />
         </v-col>
         <v-col cols=12 md=4>
-          <h2>haa</h2>
+          <AwakeFilter />
         </v-col>
       </v-row>
     </v-container>
@@ -15,10 +15,12 @@
 
 <script>
 import AttributeFilter from  '@/components/Filter/AttributeFilter.vue'
+import AwakeFilter from  '@/components/Filter/AwakeFilter.vue'
 
 export default {
   components : {
-    AttributeFilter
+    AttributeFilter,
+    AwakeFilter
   },
 }
 </script>
