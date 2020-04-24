@@ -4,7 +4,7 @@
       <v-card-title >
         属性割合
       </v-card-title>
-      <doughnut-chart :chart-data="attributeChartData" :options="chartOptions" height="200" width="200"/> 
+      <doughnut-chart :chart-data="attributeChartData" :options="chartOptions" :height=200 :width=200 /> 
     </v-card>
   </v-col>
 </template>

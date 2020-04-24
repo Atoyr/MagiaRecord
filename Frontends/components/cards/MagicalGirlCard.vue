@@ -1,5 +1,5 @@
 <template>
-  <v-col cols=12 :md="size" class="Card">
+  <v-col :cols=12 :md="size" class="Card">
     <v-card class="px-4 py-2" color="#f5f5f5">
       <v-card-title >
         魔法少女

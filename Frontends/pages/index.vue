@@ -2,8 +2,8 @@
   <div>
     <h2>マギアレコード データベース</h2>
     <v-row>
-    <AttributeChartCard size="3" />
-    <MagicalGirlCard size="12"/>
+    <AttributeChartCard :size=3 />
+    <MagicalGirlCard :size=12 />
     <Filter />
     </v-row>
   </div>
