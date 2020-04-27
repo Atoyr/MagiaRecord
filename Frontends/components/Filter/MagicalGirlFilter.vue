@@ -6,7 +6,7 @@
           <AttributeFilter />
         </v-col>
         <v-col cols=12 md=4>
-          <AwakeFilter />
+          <Mentalstrengthening />
         </v-col>
       </v-row>
     </v-container>
@@ -15,12 +15,12 @@
 
 <script>
 import AttributeFilter from  '@/components/Filter/AttributeFilter.vue'
-import AwakeFilter from  '@/components/Filter/AwakeFilter.vue'
+import Mentalstrengthening from  '@/components/Filter/Mentalstrengthening.vue'
 
 export default {
   components : {
     AttributeFilter,
-    AwakeFilter
+    Mentalstrengthening
   },
 }
 </script>
