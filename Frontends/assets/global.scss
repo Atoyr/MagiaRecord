@@ -1,3 +1,67 @@
 body {
   background: linear-gradient(#d4b0b5,#ada6be,#7084a5);
 }
+
+.label {
+
+}
+
+.flex {
+  display: flex;
+}
+
+.label-left {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  padding: 0 30px;/*横の大きさ*/
+  margin: 0;
+  color: #FFF;/*文字色*/
+  box-sizing: border-box; 
+  background: $pink-1;
+  align-content:stretch;
+  height: 32px;/*リボンの高さ*/
+  line-height: 32px;/*リボンの高さ*/
+  font-size: 18px;
+  flex: 1 0 auto;
+}
+
+.label-left:before {
+  position: absolute;
+  content: '';
+  width: 0px;
+  height: 0px;
+  top: 0;
+  left: -10px;
+  border-width: 16px 10px 16px 0px;
+  border-color: transparent $pink-1 transparent transparent;
+  border-style: solid;
+}
+
+.label-right {
+  display: block;
+  flex: 0 0 180px;
+  position: relative;
+  text-align: center;
+  padding: 0 30px;/*横の大きさ*/
+  margin: 0;
+  color: #FFF;/*文字色*/
+  box-sizing: border-box; 
+  background: $gray-4;
+  align-content:stretch;
+  height: 32px;/*リボンの高さ*/
+  line-height: 32px;/*リボンの高さ*/
+  font-size: 18px;/*文字の大きさ*/
+}
+.label-right:after {
+  position: absolute;
+  content: '';
+  width: 0px;
+  height: 0px;
+  top: 0;
+  right: -10px;
+  border-width: 16px 0px 16px 10px;
+  border-color: transparent transparent transparent $gray-4 ;
+  border-style: solid;
+}
+
