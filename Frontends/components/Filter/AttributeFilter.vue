@@ -54,6 +54,14 @@ export default {
       checkAttributes: [],
       attributes: ["flame","aqua","forest","dark","light","void"]
     }
+  },
+  watch: {
+    checkAttributes: {
+      handler: function(newValue, oldValue) {
+        this.$store.dispatch('applyAttributeFilter',{attributes: this.checkAttributes});
+      },
+      deep: true
+    }
   }
 }
 </script>

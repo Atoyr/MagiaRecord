@@ -11,7 +11,7 @@ const MAGICAL_GIRLS = [
         {
           id: 2,
           name: 'nanami yachiyo',
-          attribute: 'watter',
+          attribute: 'water',
           type: 'balance',
           hp: 2500,
           attack: 400,
@@ -38,7 +38,7 @@ const MAGICAL_GIRLS = [
         {
           id: 5,
           name: 'futaba sana',
-          attribute: 'folest',
+          attribute: 'forest',
           type: 'deffence',
           hp: 2400,
           attack: 400,
@@ -103,6 +103,7 @@ export const getters = {
   },
   magicalGirls(state) {
     return state.magicalGirls.filter(magicalGirl => {
+        console.log(state.magicalGirlFilter.attributes)
         return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.attribute)
       }).filter(magicalGirl => {
         return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.type)
