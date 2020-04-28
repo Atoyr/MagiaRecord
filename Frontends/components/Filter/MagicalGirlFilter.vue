@@ -9,6 +9,11 @@
           <Mentalstrengthening />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols=12 md=8>
+          <TypeFilter />
+        </v-col>
+      </v-row>
     </v-container>
   </v-card>
 </template>
@@ -16,11 +21,13 @@
 <script>
 import AttributeFilter from  '@/components/Filter/AttributeFilter.vue'
 import Mentalstrengthening from  '@/components/Filter/Mentalstrengthening.vue'
+import TypeFilter from  '@/components/Filter/TypeFilter.vue'
 
 export default {
   components : {
     AttributeFilter,
-    Mentalstrengthening
+    Mentalstrengthening,
+    TypeFilter
   },
 }
 </script>
