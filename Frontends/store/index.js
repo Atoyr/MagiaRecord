@@ -72,45 +72,55 @@ const ATTRIBUTE_COUNT = [
 export const state = () => ({
   magicalGirls : [],
   attributes : [ ],
-  attributeChartData : {
-    datasets: [],
-    labels: [],
+  magicalGirlFilter : {
+    attributes: [],
+    types: [],
+    mental: []
   }
 })
 
 export const mutations = {
   clearMagicalGirls(state) {
-    state.magicalGirls = []
+    state.magicalGirls = [];
   },
   updateMagicalGirls(state, magicalGirls) {
-    state.magicalGirls = magicalGirls
+    state.magicalGirls = magicalGirls;
   },
   updateAttributes(state, attributes) {
-    state.attributes = attributes
-    const count = [];
-    const labels = [];
-    attributes.forEach(a => {
-        count.push(a.count)
-        labels.push(a.attribute)
-      });
-    state.attributeChartData.datasets = [{
-      data: count
-    }];
-    state.attributeChartData.labels = labels;
+    state.attributes = attributes;
   },
+  updateAttributeFilter(state, attributes) {
+    state.magicalGirlFilter.attributes = attributes
+  },
+  updateTypeFilter(state, types) {
+    state.magicalGirlFilter.types = types;
+  }
 }
 
 export const getters = {
-  getAttributes(state) {
-    return state.attributes
+  attributes(state) {
+    return state.attributes;
+  },
+  magicalGirls(state) {
+    return state.magicalGirls.filter(magicalGirl => {
+        return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.attribute)
+      }).filter(magicalGirl => {
+        return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.type)
+      })
   }
 }
 
 export const actions = {
   fetchMagicalGirls({commit}) {
-    commit('updateMagicalGirls', MAGICAL_GIRLS)
+    commit('updateMagicalGirls', MAGICAL_GIRLS);
   },
   fetchAttributes({commit}) {
-    commit('updateAttributes', ATTRIBUTE_COUNT)
+    commit('updateAttributes', ATTRIBUTE_COUNT);
+  },
+  applyAttributeFilter({commit}, {attributes}) {
+    commit('updateAttributeFilter', attributes);
+  },
+  applyTypeFilter({commit}, {types}) {
+    commit('updateTypeFilter', types);
   }
 }

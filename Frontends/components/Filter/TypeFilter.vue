@@ -56,6 +56,14 @@ export default {
         ]
 
     }
+  },
+  watch: {
+    checkTypes: {
+      handler: function(newValue, oldValue) {
+        this.$store.dispatch('applyTypeFilter',{types: this.checkTypes});
+      },
+      deep: true
+    }
   }
 }
 </script>

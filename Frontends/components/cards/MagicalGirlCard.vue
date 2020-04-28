@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters} from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['magicalGirls'])
+    ...mapGetters(["magicalGirls"])
   },
   async fetch ({ store, params }) {
     await store.dispatch('fetchMagicalGirls');
