@@ -58,7 +58,7 @@ export default {
   watch: {
     checkAttributes: {
       handler: function(newValue, oldValue) {
-        this.$store.dispatch('applyAttributeFilter',{attributes: this.checkAttributes});
+        this.$store.dispatch('magicalGirl/applyAttributeFilter',{attributes: this.checkAttributes});
       },
       deep: true
     }

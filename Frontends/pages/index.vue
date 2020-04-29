@@ -23,8 +23,9 @@ export default {
     ...mapState(['magicalGirls'])
   },
   async fetch ({ store, params }) {
-    await store.dispatch('fetchMagicalGirls');
-    await store.dispatch('fetchAttributes');
+    console.log(store)
+    await store.dispatch('magicalGirl/fetchMagicalGirls');
+    await store.dispatch('magicalGirl/fetchAttributes');
   },
   data() {
     return {

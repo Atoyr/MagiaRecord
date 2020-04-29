@@ -60,7 +60,7 @@ export default {
   watch: {
     checkTypes: {
       handler: function(newValue, oldValue) {
-        this.$store.dispatch('applyTypeFilter',{types: this.checkTypes});
+        this.$store.dispatch('magicalGirl/applyTypeFilter',{types: this.checkTypes});
       },
       deep: true
     }

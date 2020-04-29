@@ -19,7 +19,7 @@ export default {
   computed: {
     ...mapState({
       attributeChartData (state)  {
-        let data = state.attributes;
+        let data = state.magicalGirl.attributes;
         const count = [];
         const labels = [];
         const datacolors = [];
@@ -56,9 +56,6 @@ export default {
         }
       }
     })},
-  async fetch ({ store, params }) {
-    await store.dispatch('fetchAttributes');
-  },
   props: {
     size: Number
   },

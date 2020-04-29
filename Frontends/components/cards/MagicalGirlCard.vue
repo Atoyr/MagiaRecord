@@ -19,10 +19,7 @@ import { mapGetters} from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(["magicalGirls"])
-  },
-  async fetch ({ store, params }) {
-    await store.dispatch('fetchMagicalGirls');
+    ...mapGetters("magicalGirl",["magicalGirls"])
   },
   props: {
     size: Number
