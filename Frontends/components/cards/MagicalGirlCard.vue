@@ -9,6 +9,9 @@
         :headers="headers"
         :items="magicalGirls"
         :items-per-page="5">
+        <template v-slot:item.attribute="{ item }">
+          <AttributeImage :attribute="item.attribute"></AttributeImage>
+        </template>
         <template v-slot:item.disk="{ item }">
           <DiskImage 
             :accele="item.disk.accele" 
@@ -23,10 +26,12 @@
 
 <script>
 import { mapGetters} from 'vuex'
+import AttributeImage from '@/components/AttributeImage.vue'
 import DiskImage from '@/components/DiskImage.vue'
 
 export default {
   components : {
+    AttributeImage,
     DiskImage
   },
   computed: {

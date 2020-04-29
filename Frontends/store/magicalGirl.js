@@ -17,12 +17,12 @@ const MAGICAL_GIRLS = [
         {
           id: 2,
           name: 'nanami yachiyo',
-          attribute: 'water',
+          attribute: 'aqua',
           type: 'balance',
           disk: {
-            accele: 2,
-            blasth: 1,
-            blastv: 1,
+            accele: 1,
+            blasth: 3,
+            blastv: 0,
             charge: 1,
           },
           hp: 2500,
@@ -32,7 +32,7 @@ const MAGICAL_GIRLS = [
         {
           id: 3,
           name: 'yui tsuruno',
-          attribute: 'fire',
+          attribute: 'flame',
           type: 'magia',
           disk: {
             accele: 2,
