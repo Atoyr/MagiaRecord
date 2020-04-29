@@ -13,6 +13,11 @@
         <v-col cols=12 md=8>
           <TypeFilter />
         </v-col>
+        <v-col cols=12 md=4>
+          <DiskFilter />
+        </v-col>
+      </v-row>
+      <v-row>
       </v-row>
     </v-container>
   </v-card>
@@ -22,12 +27,14 @@
 import AttributeFilter from  '@/components/Filter/AttributeFilter.vue'
 import Mentalstrengthening from  '@/components/Filter/Mentalstrengthening.vue'
 import TypeFilter from  '@/components/Filter/TypeFilter.vue'
+import DiskFilter from  '@/components/Filter/DiskFilter.vue'
 
 export default {
   components : {
     AttributeFilter,
     Mentalstrengthening,
-    TypeFilter
+    TypeFilter,
+    DiskFilter
   },
 }
 </script>
