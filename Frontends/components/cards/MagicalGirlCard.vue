@@ -9,6 +9,13 @@
         :headers="headers"
         :items="magicalGirls"
         :items-per-page="5">
+        <template v-slot:item.disk="{ item }">
+          <DiskImage 
+            :accele="item.disk.accele" 
+            :blastv="item.disk.blastv"
+            :blasth="item.disk.blasth"
+            :charge="item.disk.charge"></DiskImage>
+        </template>
       </v-data-table>
     </v-card>
   </v-col>
@@ -16,8 +23,12 @@
 
 <script>
 import { mapGetters} from 'vuex'
+import DiskImage from '@/components/DiskImage.vue'
 
 export default {
+  components : {
+    DiskImage
+  },
   computed: {
     ...mapGetters("magicalGirl",["magicalGirls"])
   },
@@ -42,6 +53,7 @@ export default {
         },
         { text: '属性', value: 'attribute' },
         { text: 'タイプ', value: 'type' },
+        { text: 'Disk', value: 'disk' },
         { text: 'HP', value: 'hp' },
         { text: 'Attack', value: 'attack' },
         { text: 'Deffence', value: 'deffence' },
