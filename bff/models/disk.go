@@ -1,8 +1,8 @@
 package models
 
 type Disk struct {
-	Accele int
-	BlastV int
-	BlastH int
-	Charge int
+	Accele int `json:"accele"`
+	BlastV int `json:"blastv"`
+	BlastH int `json:"blasth"`
+	Charge int `json:"charge"`
 }

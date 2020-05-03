@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import "github.com/atoyr/MagiaRecord/bff/handler"
 
 func main() {
-	fmt.Println("Hello wolrd")
+	e := echo.New()
+
+	e.GET(handler.GetMagicalGirls)
 }

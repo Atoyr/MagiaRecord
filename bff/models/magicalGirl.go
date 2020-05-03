@@ -1,9 +1,13 @@
 package models
 
 type MagicalGirl struct {
-	Id        int
-	Name      string
-	Type      string
-	Attribute string
-	Disk      Disk
+	Id        int    `json:"id"`
+	Name      string `json:"name"`
+	Type      string `json:"type"`
+	Attribute string `json:"attribute"`
+	Disk      Disk   `json:"disk"`
+}
+
+func GetMagicalGirls() []MagicalGirl {
+	return nil
 }
