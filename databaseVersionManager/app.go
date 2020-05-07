@@ -25,7 +25,7 @@ var folder string
 
 var okstring = "[\x1b[32m OK \x1b[0m]"
 var failstring = "[\x1b[31mFAIL\x1b[0m]"
-var infostring = "[\x1b[34mINFO\x1b[0m]"
+var infostring = "[\x1b[36mINFO\x1b[0m]"
 
 type version struct {
 	mejor    int
