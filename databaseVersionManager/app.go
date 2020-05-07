@@ -60,6 +60,7 @@ func (v *version) String() string {
 }
 
 func main() {
+	current, _ := os.Getwd()
 	serverFlag := &cli.StringFlag{
 		Name:        "server",
 		Aliases:     []string{"s"},
@@ -84,7 +85,6 @@ func main() {
 		Usage:       "SQLServer Server User",
 		EnvVars:     []string{"DBUSER"},
 		Destination: &user,
-		Required:    true,
 	}
 	passwordFlag := &cli.StringFlag{
 		Name:        "password",
@@ -105,6 +105,7 @@ func main() {
 	folderFlag := &cli.StringFlag{
 		Name:        "folder",
 		Aliases:     []string{"f"},
+		Value:       current,
 		Usage:       "SQL Query Current Folder",
 		Destination: &folder,
 	}
@@ -113,7 +114,20 @@ func main() {
 	app.Name = "Database Version Manager"
 	app.Commands = []*cli.Command{
 		{
-			Name:    "Update Database",
+			Name:    "CheckDatabase",
+			Aliases: []string{"c"},
+			Usage:   "Check Database Version",
+			Flags: []cli.Flag{
+				serverFlag,
+				instanceFlag,
+				userFlag,
+				passwordFlag,
+				databaseFlag,
+			},
+			Action: checkDatabaseAction,
+		},
+		{
+			Name:    "UpdateDatabase",
 			Aliases: []string{"u"},
 			Usage:   "Update Database to Version",
 			Flags: []cli.Flag{
@@ -133,25 +147,13 @@ func main() {
 			Flags: []cli.Flag{
 				folderFlag,
 			},
-			Action: func(c *cli.Context) error {
-				if folder == "" {
-					folder, _ = os.Getwd()
-				}
-				vs, err := checkQueryVersion(folder)
-				if err != nil {
-					return err
-				}
-				for _, v := range vs {
-					fmt.Println(v.String())
-				}
-				return nil
-			},
+			Action: queryVersionAction,
 		},
 	}
 
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Println(err)
+		fmt.Printf("%s %s\n", failstring, err.Error())
 	}
 }
 
@@ -172,21 +174,29 @@ func getConnectionString() string {
 	return string(ret)
 }
 
-func updateDatabaseAction(c *cli.Context) error {
+func checkDatabaseAction(c *cli.Context) error {
 	var err error
-	fmt.Printf("%s Starting Database Version Manager\n", infostring)
+	fmt.Printf("%s Start Check Database Version\n", infostring)
 	err = checkExecuteDatabase()
 	if err != nil {
-		fmt.Printf("%s SQL Server Connect Error : %s\n", failstring, err.Error())
-		return nil
+		return fmt.Errorf("SQL Server Connect Error : %s", err)
 	}
 	fmt.Printf("%s SQL Server Connect\n", okstring)
 	v, err := checkDatabaseVersion()
 	if err != nil {
-		fmt.Printf("%s SQL Server Version Data Error : %s\n", failstring, err.Error())
-		return nil
+		return fmt.Errorf("SQL Server Version Data Error : %s", err)
 	}
 	fmt.Printf("%s Database Version %s\n", infostring, v.String())
+	return nil
+}
+
+func updateDatabaseAction(c *cli.Context) error {
+	var err error
+	fmt.Printf("%s Start Update Database Version\n", infostring)
+	err = checkDatabaseAction(c)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -243,6 +253,17 @@ func checkDatabaseVersion() (version, error) {
 		v.revision = revision
 	}
 	return v, nil
+}
+
+func queryVersionAction(c *cli.Context) error {
+	vs, err := checkQueryVersion(folder)
+	if err != nil {
+		return err
+	}
+	for _, v := range vs {
+		fmt.Println(v.String())
+	}
+	return nil
 }
 
 func checkQueryVersion(dir string) ([]version, error) {
