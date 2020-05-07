@@ -21,7 +21,7 @@ var user string
 var password string
 var db string
 var port string
-var directory string
+var folder string
 
 var okstring = "[\x1b[32m OK \x1b[0m]"
 var failstring = "[\x1b[31mFAIL\x1b[0m]"
@@ -60,74 +60,84 @@ func (v *version) String() string {
 }
 
 func main() {
+	serverFlag := &cli.StringFlag{
+		Name:        "server",
+		Aliases:     []string{"s"},
+		Value:       "",
+		Usage:       "SQLServer Server Name",
+		EnvVars:     []string{"DBSERVER"},
+		Destination: &server,
+		Required:    true,
+	}
+	instanceFlag := &cli.StringFlag{
+		Name:        "instance",
+		Aliases:     []string{"i"},
+		Value:       "",
+		Usage:       "SQLServer Server Instance Name",
+		EnvVars:     []string{"DBINSTANCE"},
+		Destination: &instance,
+	}
+	userFlag := &cli.StringFlag{
+		Name:        "user",
+		Aliases:     []string{"u"},
+		Value:       "sa",
+		Usage:       "SQLServer Server User",
+		EnvVars:     []string{"DBUSER"},
+		Destination: &user,
+		Required:    true,
+	}
+	passwordFlag := &cli.StringFlag{
+		Name:        "password",
+		Aliases:     []string{"p"},
+		Value:       "",
+		Usage:       "SQLServer Server Password",
+		EnvVars:     []string{"DBPASS"},
+		Destination: &password,
+		Required:    true,
+	}
+	databaseFlag := &cli.StringFlag{
+		Name:        "database",
+		Aliases:     []string{"d"},
+		Value:       "master",
+		Usage:       "SQLServer Server using database",
+		Destination: &db,
+	}
+	folderFlag := &cli.StringFlag{
+		Name:        "folder",
+		Aliases:     []string{"f"},
+		Usage:       "SQL Query Current Folder",
+		Destination: &folder,
+	}
+
 	app := new(cli.App)
 	app.Name = "Database Version Manager"
-	app.Flags = []cli.Flag{
-		&cli.StringFlag{
-			Name:        "server",
-			Aliases:     []string{"s"},
-			Value:       "",
-			Usage:       "SQLServer Server Name",
-			EnvVars:     []string{"DBSERVER"},
-			Destination: &server,
-		},
-		&cli.StringFlag{
-			Name:        "instance",
-			Aliases:     []string{"i"},
-			Value:       "",
-			Usage:       "SQLServer Server Instance Name",
-			EnvVars:     []string{"DBINSTANCE"},
-			Destination: &instance,
-		},
-		&cli.StringFlag{
-			Name:        "user",
-			Aliases:     []string{"u"},
-			Value:       "sa",
-			Usage:       "SQLServer Server User",
-			EnvVars:     []string{"DBUSER"},
-			Destination: &user,
-		},
-		&cli.StringFlag{
-			Name:        "password",
-			Aliases:     []string{"p"},
-			Value:       "",
-			Usage:       "SQLServer Server Password",
-			EnvVars:     []string{"DBPASS"},
-			Destination: &password,
-		},
-		&cli.StringFlag{
-			Name:        "database",
-			Aliases:     []string{"d"},
-			Value:       "master",
-			Usage:       "SQLServer Server using database",
-			Destination: &db,
-		},
-		&cli.StringFlag{
-			Name:        "directory",
-			Aliases:     []string{"dir"},
-			Usage:       "SQL Query Directory",
-			Destination: &directory,
-		},
-	}
 	app.Commands = []*cli.Command{
+		{
+			Name:    "Update Database",
+			Aliases: []string{"u"},
+			Usage:   "Update Database to Version",
+			Flags: []cli.Flag{
+				serverFlag,
+				instanceFlag,
+				userFlag,
+				passwordFlag,
+				databaseFlag,
+				folderFlag,
+			},
+			Action: updateDatabaseAction,
+		},
 		{
 			Name:    "QueryVersion",
 			Aliases: []string{"qv"},
 			Usage:   "Get Query Version",
 			Flags: []cli.Flag{
-
-				&cli.StringFlag{
-					Name:        "directory",
-					Aliases:     []string{"dir"},
-					Usage:       "SQL Query Directory",
-					Destination: &directory,
-				},
+				folderFlag,
 			},
 			Action: func(c *cli.Context) error {
-				if directory == "" {
-					directory, _ = os.Getwd()
+				if folder == "" {
+					folder, _ = os.Getwd()
 				}
-				vs, err := checkQueryVersion(directory)
+				vs, err := checkQueryVersion(folder)
 				if err != nil {
 					return err
 				}
@@ -139,7 +149,6 @@ func main() {
 		},
 	}
 
-	app.Action = action
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Println(err)
@@ -163,7 +172,7 @@ func getConnectionString() string {
 	return string(ret)
 }
 
-func action(c *cli.Context) error {
+func updateDatabaseAction(c *cli.Context) error {
 	var err error
 	fmt.Printf("%s Starting Database Version Manager\n", infostring)
 	err = checkExecuteDatabase()
