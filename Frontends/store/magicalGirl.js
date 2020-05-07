@@ -1,9 +1,9 @@
 const MAGICAL_GIRLS = [
         {
           id: 1,
-          name: 'tamaki iroha',
+          name: '環 いろは',
           attribute: 'light',
-          type: 'heel',
+          type: '回復',
           disk: {
             accele: 2,
             blasth: 1,
@@ -16,9 +16,9 @@ const MAGICAL_GIRLS = [
         },
         {
           id: 2,
-          name: 'nanami yachiyo',
+          name: '七海 やちよ',
           attribute: 'aqua',
-          type: 'balance',
+          type: 'バランス',
           disk: {
             accele: 1,
             blasth: 3,
@@ -31,9 +31,9 @@ const MAGICAL_GIRLS = [
         },
         {
           id: 3,
-          name: 'yui tsuruno',
+          name: '由依 鶴乃',
           attribute: 'flame',
-          type: 'magia',
+          type: 'マギア',
           disk: {
             accele: 2,
             blasth: 1,
@@ -46,9 +46,9 @@ const MAGICAL_GIRLS = [
         },
         {
           id: 4,
-          name: 'mitsuki ferishia',
+          name: '深月 フェリシア',
           attribute: 'dark',
-          type: 'attack',
+          type: 'アタック',
           disk: {
             accele: 2,
             blasth: 1,
@@ -61,9 +61,9 @@ const MAGICAL_GIRLS = [
         },
         {
           id: 5,
-          name: 'futaba sana',
+          name: '二葉 さな',
           attribute: 'forest',
-          type: 'deffence',
+          type: 'ディフェンス',
           disk: {
             accele: 2,
             blasth: 1,
