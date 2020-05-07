@@ -1,8 +1,8 @@
 create table Disks (
   ID int NOT NULL,
   Accele tinyint,
-  BlastH tinyint,
   BlastV tinyint,
+  BlastH tinyint,
   Charge tinyint,
   CONSTRAINT PK_Type PRIMARY KEY CLUSTERED(
     ID ASC
