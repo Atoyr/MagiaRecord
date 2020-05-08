@@ -14,32 +14,32 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-slider v-model="acceleSize" max="3" step="1" ticks="always" tick-size="4">
+        <v-range-slider v-model="diskFilter.acceleRange" max="3" step="1" ticks="always" tick-size="4">
           <template v-slot:label>
             <DiskImage :accele=1></DiskImage>
           </template>
-        </v-slider>
+        </v-range-slider>
       </v-row>
       <v-row>
-        <v-slider v-model="blastvSize" max="3" step="1" ticks="always" tick-size="4">
+        <v-range-slider v-model="diskFilter.blastvRange" max="3" step="1" ticks="always" tick-size="4">
           <template v-slot:label>
             <DiskImage :blastv=1></DiskImage>
           </template>
-        </v-slider>
+        </v-range-slider>
       </v-row>
       <v-row>
-        <v-slider v-model="blasthSize" max="3" step="1" ticks="always" tick-size="4">
+        <v-range-slider v-model="diskFilter.blasthRange" max="3" step="1" ticks="always" tick-size="4">
           <template v-slot:label>
             <DiskImage :blasth=1></DiskImage>
           </template>
-        </v-slider>
+        </v-range-slider>
       </v-row>
       <v-row>
-        <v-slider v-model="chargeSize" max="3" step="1" ticks="always" tick-size="4">
+        <v-range-slider v-model="diskFilter.chargeRange" max="3" step="1" ticks="always" tick-size="4">
           <template v-slot:label>
             <DiskImage :charge=1></DiskImage>
           </template>
-        </v-slider>
+        </v-range-slider>
       </v-row>
     </v-container>
 </template>
@@ -53,7 +53,14 @@ export default {
   computed: {
     selectAll: {
       get: function() {
-        if(this.acceleSize == 0 && this.blastvSize == 0 && this.blasthSize == 0 && this.chargeSize == 0){
+        if(this.diskFilter.acceleRange[0] == 0 
+          && this.diskFilter.acceleRange[1] == 3
+          && this.diskFilter.blastvRange[0] == 0
+          && this.diskFilter.blastvRange[1] == 3
+          && this.diskFilter.blasthRange[0] == 0
+          && this.diskFilter.blasthRange[1] == 3
+          && this.diskFilter.chargeRange[0] == 0
+          && this.diskFilter.chargeRange[1] == 3 ){
           return true;
         }else{
           return false;
@@ -61,28 +68,30 @@ export default {
       },
       set: function(value) {
         if (value) {
-          this.acceleSize = 0;
-          this.blastvSize = 0;
-          this.blasthSize = 0;
-          this.chargeSize = 0;
+          this.diskFilter.acceleRange = [0, 3];
+          this.diskFilter.blastvRange = [0, 3];
+          this.diskFilter.blasthRange = [0, 3];
+          this.diskFilter.chargeRange = [0, 3];
         }
       }
-    }
+    },
   },
   data()  {
     return {
-      acceleSize: 0,
-      blastvSize: 0,
-      blasthSize: 0,
-      chargeSize: 0,
+      diskFilter: {
+        acceleRange: [0, 3],
+        blastvRange: [0, 3],
+        blasthRange: [0, 3],
+        chargeRange: [0, 3],
+      }
     }
   },
   watch: {
-    checkAttributes: {
+    diskFilter: {
       handler: function(newValue, oldValue) {
-        this.$store.dispatch('magicalGirl/applyAttributeFilter',{attributes: this.checkAttributes});
+        this.$store.dispatch('magicalGirl/applyDisksRangeFilter',{disksRange: this.diskFilter});
       },
-      deep: true
+      deep: true,
     }
   }
 }

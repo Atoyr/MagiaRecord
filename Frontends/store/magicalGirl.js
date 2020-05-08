@@ -101,11 +101,17 @@ const ATTRIBUTE_COUNT = [
 
 export const state = () => ({
   magicalGirls : [],
-  attributes : [ ],
+  attributes : [],
   magicalGirlFilter : {
     attributes: [],
     types: [],
-    mental: []
+    mental: [],
+    disksRange: {
+      acceleRange: [0,3],
+      blastvRange: [0,3],
+      blasthRange: [0,3],
+      chargeRange: [0,3]
+    }
   }
 })
 
@@ -124,6 +130,9 @@ export const mutations = {
   },
   updateTypeFilter(state, types) {
     state.magicalGirlFilter.types = types;
+  },
+  updateDisksRangeFilter(state, disksRange) {
+    state.magicalGirlFilter.disksRange = disksRange;
   }
 }
 
@@ -133,10 +142,28 @@ export const getters = {
   },
   magicalGirls(state) {
     return state.magicalGirls.filter(magicalGirl => {
-        console.log(state.magicalGirlFilter.attributes)
         return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.attribute)
       }).filter(magicalGirl => {
         return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.type)
+      }).filter(magicalGirl => {
+        let result = true;
+        if (!(state.magicalGirlFilter.disksRange.acceleRange[0] == 0 && state.magicalGirlFilter.disksRange.acceleRange[1] == 3)) {
+          result = state.magicalGirlFilter.disksRange.acceleRange[0] <= magicalGirl.disk.accele 
+            && magicalGirl.disk.accele <= state.magicalGirlFilter.disksRange.acceleRange[1];
+        }
+        if (result && !(state.magicalGirlFilter.disksRange.blastvRange[0] == 0 && state.magicalGirlFilter.disksRange.blastvRange[1] == 3)) {
+          result = state.magicalGirlFilter.disksRange.blastvRange[0] <= magicalGirl.disk.blastv 
+            && magicalGirl.disk.blastv <= state.magicalGirlFilter.disksRange.blastvRange[1];
+        }
+        if (result && !(state.magicalGirlFilter.disksRange.blasthRange[0] == 0 && state.magicalGirlFilter.disksRange.blasthRange[1] == 3)) {
+          result = state.magicalGirlFilter.disksRange.blasthRange[0] <= magicalGirl.disk.blasth 
+            && magicalGirl.disk.blasth <= state.magicalGirlFilter.disksRange.blasthRange[1];
+        }
+        if (result && !(state.magicalGirlFilter.disksRange.chargeRange[0] == 0 && state.magicalGirlFilter.disksRange.chargeRange[1] == 3)) {
+          result = state.magicalGirlFilter.disksRange.chargeRange[0] <= magicalGirl.disk.charge 
+            && magicalGirl.disk.charge <= state.magicalGirlFilter.disksRange.chargeRange[1];
+        }
+        return result;
       })
   }
 }
@@ -153,5 +180,22 @@ export const actions = {
   },
   applyTypeFilter({commit}, {types}) {
     commit('updateTypeFilter', types);
+  },
+  applyDisksRangeFilter({commit}, {disksRange}) {
+    let dr = {
+      acceleRange: [],
+      blastvRange: [],
+      blasthRange: [],
+      chargeRange: [],
+    }
+    dr.acceleRange[0] = disksRange.acceleRange[0]
+    dr.acceleRange[1] = disksRange.acceleRange[1]
+    dr.blastvRange[0] = disksRange.blastvRange[0]
+    dr.blastvRange[1] = disksRange.blastvRange[1]
+    dr.blasthRange[0] = disksRange.blasthRange[0]
+    dr.blasthRange[1] = disksRange.blasthRange[1]
+    dr.chargeRange[0] = disksRange.chargeRange[0]
+    dr.chargeRange[1] = disksRange.chargeRange[1]
+    commit('updateDisksRangeFilter', dr);
   }
 }
