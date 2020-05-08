@@ -147,19 +147,19 @@ export const getters = {
         return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.type)
       }).filter(magicalGirl => {
         let result = true;
-        if (!(state.magicalGirlFilter.disksRange.acceleRange[0] == 0 && state.magicalGirlFilter.disksRange.acceleRange[1] == 3)) {
+        if (!(state.magicalGirlFilter.disksRange.acceleRange[0] == 1 && state.magicalGirlFilter.disksRange.acceleRange[1] == 3)) {
           result = state.magicalGirlFilter.disksRange.acceleRange[0] <= magicalGirl.disk.accele 
             && magicalGirl.disk.accele <= state.magicalGirlFilter.disksRange.acceleRange[1];
         }
-        if (result && !(state.magicalGirlFilter.disksRange.blastvRange[0] == 0 && state.magicalGirlFilter.disksRange.blastvRange[1] == 3)) {
+        if (result && !(state.magicalGirlFilter.disksRange.blastvRange[0] == 1 && state.magicalGirlFilter.disksRange.blastvRange[1] == 3)) {
           result = state.magicalGirlFilter.disksRange.blastvRange[0] <= magicalGirl.disk.blastv 
             && magicalGirl.disk.blastv <= state.magicalGirlFilter.disksRange.blastvRange[1];
         }
-        if (result && !(state.magicalGirlFilter.disksRange.blasthRange[0] == 0 && state.magicalGirlFilter.disksRange.blasthRange[1] == 3)) {
+        if (result && !(state.magicalGirlFilter.disksRange.blasthRange[0] == 1 && state.magicalGirlFilter.disksRange.blasthRange[1] == 3)) {
           result = state.magicalGirlFilter.disksRange.blasthRange[0] <= magicalGirl.disk.blasth 
             && magicalGirl.disk.blasth <= state.magicalGirlFilter.disksRange.blasthRange[1];
         }
-        if (result && !(state.magicalGirlFilter.disksRange.chargeRange[0] == 0 && state.magicalGirlFilter.disksRange.chargeRange[1] == 3)) {
+        if (result && !(state.magicalGirlFilter.disksRange.chargeRange[0] == 1 && state.magicalGirlFilter.disksRange.chargeRange[1] == 3)) {
           result = state.magicalGirlFilter.disksRange.chargeRange[0] <= magicalGirl.disk.charge 
             && magicalGirl.disk.charge <= state.magicalGirlFilter.disksRange.chargeRange[1];
         }
