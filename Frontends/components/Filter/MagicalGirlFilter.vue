@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import AttributeFilter from  '@/components/Filter/AttributeFilter.vue'
-import Mentalstrengthening from  '@/components/Filter/Mentalstrengthening.vue'
-import TypeFilter from  '@/components/Filter/TypeFilter.vue'
-import DiskFilter from  '@/components/Filter/DiskFilter.vue'
+import AttributeFilter from  '@/components/filter/AttributeFilter.vue'
+import Mentalstrengthening from  '@/components/filter/Mentalstrengthening.vue'
+import TypeFilter from  '@/components/filter/TypeFilter.vue'
+import DiskFilter from  '@/components/filter/DiskFilter.vue'
 
 export default {
   components : {

@@ -26,7 +26,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import MagicalGirlFilter from  '@/components/Filter/MagicalGirlFilter.vue'
+import MagicalGirlFilter from  '@/components/filter/MagicalGirlFilter.vue'
 
 export default {
   components : {
