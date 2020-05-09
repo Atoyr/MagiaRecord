@@ -1,5 +1,5 @@
 create table MagicalGirls (
-  ID int IDENTITY(1,1) NOT NULL,
+  ID int NOT NULL,
   Name nvarchar(100) NOT NULL,
   Version nvarchar(50) NOT NULL,
   RomanName nvarchar(100) NOT NULL,
