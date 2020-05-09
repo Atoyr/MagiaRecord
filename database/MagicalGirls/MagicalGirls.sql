@@ -8,7 +8,7 @@ create table MagicalGirls (
   DiskID int NOT NULL,
   ConnectID int NOT NULL,
   
-  CONSTRAINT PK_MagicalGirl PRIMARY KEY NONCLUSTERED(
+  CONSTRAINT PK_MagicalGirls PRIMARY KEY NONCLUSTERED(
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
 )

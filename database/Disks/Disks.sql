@@ -4,7 +4,7 @@ create table Disks (
   BlastV tinyint,
   BlastH tinyint,
   Charge tinyint,
-  CONSTRAINT PK_Type PRIMARY KEY CLUSTERED(
+  CONSTRAINT PK_Disks PRIMARY KEY CLUSTERED(
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF)
 );
