@@ -1,12 +1,17 @@
 create table MagicalGirls (
   ID int NOT NULL,
-  Name nvarchar(100) NOT NULL,
-  Version nvarchar(50) NOT NULL,
-  RomanName nvarchar(100) NOT NULL,
+  Name nvarchar(128) NOT NULL,
+  Version nvarchar(64) NOT NULL,
+  RomanName nvarchar(128) NOT NULL,
   AttributeID int NOT NULL,
   TypeID int NOT NULL,
-  DiskID int NOT NULL,
-  ConnectID int NOT NULL,
+  Accele tinyint NOT NULL,
+  BlastV tinyint NOT NULL,
+  BlastH tinyint NOT NULL,
+  Charge tinyint NOT NULL,
+  ConnectName nvarchar(128),
+  MagiaName nvarchar(64),
+  DoppleName nvarchar(64),
   
   CONSTRAINT PK_MagicalGirls PRIMARY KEY NONCLUSTERED(
     ID ASC
