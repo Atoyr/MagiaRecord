@@ -10,5 +10,3 @@ GO
 
 insert into SystemVersion values('Connects',0,0,0);
 GO
-
-

@@ -13,8 +13,8 @@ create table MagicalGirls (
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
 )
 GO
-CREATE CLUSTERED INDEX IDX_RomanName ON MagicalGirls(
-  RomanName ASC
+CREATE CLUSTERED INDEX IDX_Name ON MagicalGirls(
+  Name ASC
 )WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY=OFF)
 GO
 insert into SystemVersion values('MagicalGirls',0,0,0);
