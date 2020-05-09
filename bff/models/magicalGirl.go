@@ -5,12 +5,12 @@ import (
 )
 
 type MagicalGirl struct {
-	Id        int    `json:"id"`
-	Name      string `json:"name"`
-	Version   string `json:"version"`
-	Type      string `json:"type"`
-	Attribute string `json:"attribute"`
-	Disk      Disk   `json:"disk"`
+	Id        int       `json:"id"`
+	Name      string    `json:"name"`
+	Version   string    `json:"version"`
+	Type      Type      `json:"type"`
+	Attribute Attribute `json:"attribute"`
+	Disk      Disk      `json:"disk"`
 }
 
 func GetMagicalGirls(db *sql.DB) ([]MagicalGirl, error) {
@@ -20,7 +20,9 @@ func GetMagicalGirls(db *sql.DB) ([]MagicalGirl, error) {
     MagicalGirls.ID
     ,MagicalGirls.Name
     ,MagicalGirls.Version
+    ,Type.ID
     ,Type.Name
+    ,Attribute.ID
     ,Attribute.Name
     ,Disk.Accele
     ,Disk.BlastV
@@ -43,13 +45,18 @@ func GetMagicalGirls(db *sql.DB) ([]MagicalGirl, error) {
 	defer rows.Close()
 	for rows.Next() {
 		mg := MagicalGirl{}
+		mg.Type = Type{}
+		mg.Attribute = Attribute{}
 		mg.Disk = Disk{}
+
 		rows.Scan(
 			&mg.Id,
 			&mg.Name,
 			&mg.Version,
-			&mg.Type,
-			&mg.Attribute,
+			&mg.Type.Id,
+			&mg.Type.Name,
+			&mg.Attribute.Id,
+			&mg.Attribute.Name,
 			&mg.Disk.Accele,
 			&mg.Disk.BlastV,
 			&mg.Disk.BlastH,
