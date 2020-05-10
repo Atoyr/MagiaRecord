@@ -123,7 +123,7 @@ func main() {
 				passwordFlag,
 				databaseFlag,
 			},
-			Action: checkDatabaseAction,
+			Action: getDatabaseVersionAction,
 		},
 		{
 			Name:    "UpdateDatabase",
@@ -146,7 +146,7 @@ func main() {
 			Flags: []cli.Flag{
 				folderFlag,
 			},
-			Action: queryVersionAction,
+			Action: getQueryVersionAction,
 		},
 	}
 
@@ -173,7 +173,7 @@ func getConnectionString() string {
 	return string(ret)
 }
 
-func checkDatabaseAction(c *cli.Context) error {
+func getDatabaseVersionAction(c *cli.Context) error {
 	var err error
 	fmt.Printf("%s Start Check Database Version\n", infostring)
 
@@ -203,7 +203,7 @@ func checkDatabaseAction(c *cli.Context) error {
 func updateDatabaseAction(c *cli.Context) error {
 	var err error
 	fmt.Printf("%s Start Update Database Version\n", infostring)
-	err = checkDatabaseAction(c)
+	err = getDatabaseVersionAction(c)
 	if err != nil {
 		return err
 	}
@@ -303,8 +303,50 @@ func getTableVersion() (map[string]version, error) {
 	return tableVersion, nil
 }
 
-func queryVersionAction(c *cli.Context) error {
-	vs, err := checkQueryVersion(folder)
+func createTable(dir, tableName string) error {
+	path := filepath.Join(dir, tableName, fmt.Sprintf("%s.sql", tableName))
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err
+	}
+
+	db, err := sql.Open("sqlserver", getConnectionString())
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec(string(b))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func executeVersionData(dir, tableName string, v version) error {
+	path := filepath.Join(dir, tableName, fmt.Sprintf("v%s.sql", v.String()))
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err
+	}
+
+	db, err := sql.Open("sqlserver", getConnectionString())
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec(string(b))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func getQueryVersionAction(c *cli.Context) error {
+	vs, err := getQueryVersion(folder)
 	if err != nil {
 		return err
 	}
@@ -314,7 +356,7 @@ func queryVersionAction(c *cli.Context) error {
 	return nil
 }
 
-func checkQueryVersion(dir string) ([]version, error) {
+func getQueryVersion(dir string) ([]version, error) {
 	// folder layout
 	//  + SystemVersion.sql
 	//  + TableA
@@ -329,6 +371,7 @@ func checkQueryVersion(dir string) ([]version, error) {
 	//      + v0.0.1.sql
 	//      + v0.0.2.sql
 	//      ....
+	// return 0.0.1 and 0.0.2
 
 	versions := map[string]version{}
 	ret := make([]version, 0)
