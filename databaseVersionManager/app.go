@@ -148,6 +148,24 @@ func main() {
 			},
 			Action: getQueryVersionAction,
 		},
+		{
+			Name:    "QueryTableToVersion",
+			Aliases: []string{"qtv"},
+			Usage:   "Get Query Table to Version",
+			Flags: []cli.Flag{
+				folderFlag,
+			},
+			Action: getQueryTable2VersionAction,
+		},
+		{
+			Name:    "QueryVersionToTable",
+			Aliases: []string{"qvt"},
+			Usage:   "Get Query Version to Table",
+			Flags: []cli.Flag{
+				folderFlag,
+			},
+			Action: getQueryVersion2TableAction,
+		},
 	}
 
 	err := app.Run(os.Args)
@@ -206,6 +224,45 @@ func updateDatabaseAction(c *cli.Context) error {
 	err = getDatabaseVersionAction(c)
 	if err != nil {
 		return err
+	}
+	return nil
+}
+
+func getQueryVersionAction(c *cli.Context) error {
+	vs, err := getVersionAtQuery(folder)
+	if err != nil {
+		return err
+	}
+	for _, v := range vs {
+		fmt.Println(v.String())
+	}
+	return nil
+}
+
+func getQueryTable2VersionAction(c *cli.Context) error {
+	tables, err := getTable2VersionAtQuery(folder)
+	if err != nil {
+		return err
+	}
+	for k, vs := range tables {
+		fmt.Println(k)
+		for _, v := range vs {
+			fmt.Printf("  %s\n", v.String())
+		}
+	}
+	return nil
+}
+
+func getQueryVersion2TableAction(c *cli.Context) error {
+	vs, err := getVersion2TableAtQuery(folder)
+	if err != nil {
+		return err
+	}
+	for v, ts := range vs {
+		fmt.Println(v)
+		for _, t := range ts {
+			fmt.Printf("  %s\n", t)
+		}
 	}
 	return nil
 }
@@ -345,18 +402,74 @@ func executeVersionData(dir, tableName string, v version) error {
 	return nil
 }
 
-func getQueryVersionAction(c *cli.Context) error {
-	vs, err := getQueryVersion(folder)
+// getTable2VersionAtQuery is return map[TableName string][]version for DB Query folder
+func getTable2VersionAtQuery(dir string) (map[string][]version, error) {
+	tablefolders, err := ioutil.ReadDir(dir)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	for _, v := range vs {
-		fmt.Println(v.String())
+
+	ret := map[string][]version{}
+	for _, tablefolder := range tablefolders {
+		if tablefolder.IsDir() {
+
+			tableQueryPath := filepath.Join(dir, tablefolder.Name(), fmt.Sprintf("%s.sql", tablefolder.Name()))
+			if _, err := os.Stat(tableQueryPath); err == nil {
+				versions := make([]version, 0)
+
+				datafolderPath := filepath.Join(dir, tablefolder.Name(), "data")
+				if data, err := os.Stat(datafolderPath); err == nil {
+					if data.IsDir() {
+						versionfiles, err := ioutil.ReadDir(datafolderPath)
+						if err == nil {
+							for _, versionfile := range versionfiles {
+								filename := versionfile.Name()
+								if filename[0] == 'v' {
+									// create version data for filename
+									filename = filename[1:]
+									temp := strings.Split(filename, ".")
+									if len(temp) >= 3 {
+										mejor, err1 := strconv.Atoi(temp[0])
+										miner, err2 := strconv.Atoi(temp[1])
+										revision, err3 := strconv.Atoi(temp[2])
+										if err1 == nil && err2 == nil && err3 == nil {
+											v := version{mejor: mejor, miner: miner, revision: revision}
+											versions = append(versions, v)
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				sort.SliceStable(versions, func(i, j int) bool { return versions[i].compare(versions[j]) > 0 })
+				ret[tablefolder.Name()] = versions
+			}
+		}
 	}
-	return nil
+	return ret, nil
 }
 
-func getQueryVersion(dir string) ([]version, error) {
+func getVersion2TableAtQuery(dir string) (map[string][]string, error) {
+	tableVersions, err := getTable2VersionAtQuery(dir)
+	if err != nil {
+		return nil, err
+	}
+	ret := map[string][]string{}
+	for k, vs := range tableVersions {
+		for _, v := range vs {
+			if _, ok := ret[v.String()]; ok {
+				ret[v.String()] = append(ret[v.String()], k)
+			} else {
+				ret[v.String()] = []string{k}
+			}
+		}
+	}
+	return ret, nil
+}
+
+func getVersionAtQuery(dir string) ([]version, error) {
 	// folder layout
 	//  + SystemVersion.sql
 	//  + TableA
@@ -375,41 +488,16 @@ func getQueryVersion(dir string) ([]version, error) {
 
 	versions := map[string]version{}
 	ret := make([]version, 0)
-	files, err := ioutil.ReadDir(dir)
+	tableVersions, err := getTable2VersionAtQuery(dir)
 	if err != nil {
-		return ret, err
+		return nil, err
 	}
 
-	for _, file := range files {
-		if file.IsDir() {
-			path := filepath.Join(dir, file.Name(), "data")
-			if data, err := os.Stat(path); err == nil {
-				if data.IsDir() {
-					vs, err := ioutil.ReadDir(path)
-					if err == nil {
-						for _, v := range vs {
-							filename := v.Name()
-							if filename[0] == 'v' {
-								// create version data for filename
-								filename = filename[1:]
-								temp := strings.Split(filename, ".")
-								if len(temp) >= 3 {
-									mejor, err1 := strconv.Atoi(temp[0])
-									miner, err2 := strconv.Atoi(temp[1])
-									revision, err3 := strconv.Atoi(temp[2])
-									if err1 == nil && err2 == nil && err3 == nil {
-										v := version{mejor: mejor, miner: miner, revision: revision}
-										versions[v.String()] = v
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+	for _, vs := range tableVersions {
+		for _, v := range vs {
+			versions[v.String()] = v
 		}
 	}
-
 	for _, v := range versions {
 		ret = append(ret, v)
 	}
