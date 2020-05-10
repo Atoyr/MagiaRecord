@@ -3,6 +3,8 @@ create table MagicalGirls (
   Name nvarchar(128) NOT NULL,
   Version nvarchar(64) NOT NULL,
   RomanName nvarchar(128) NOT NULL,
+  MinRare tinyint NOT NULL,
+  MaxRare tinyint NOT NULL,
   AttributeID int NOT NULL,
   TypeID int NOT NULL,
   Accele tinyint NOT NULL,
