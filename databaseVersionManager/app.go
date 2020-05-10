@@ -311,7 +311,7 @@ func getSystemVersion() (version, error) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("select Mejor, Miner, Revison from dbo.SystemTable where TableName = N'SystemVersion' ")
+	rows, err := db.Query("select Mejor, Miner, Revison from dbo.SystemVersion where TableName = N'SystemVersion' ")
 	if err != nil {
 		return v, err
 	}
