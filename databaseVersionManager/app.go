@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 	"sort"
@@ -177,16 +176,27 @@ func getConnectionString() string {
 func checkDatabaseAction(c *cli.Context) error {
 	var err error
 	fmt.Printf("%s Start Check Database Version\n", infostring)
-	err = checkExecuteDatabase()
+
+	err = tryDatabaseConnect()
 	if err != nil {
 		return fmt.Errorf("SQL Server Connect Error : %s", err)
 	}
 	fmt.Printf("%s SQL Server Connect\n", okstring)
-	v, err := checkDatabaseVersion()
+
+	ok, err := isExistsSystemVersionTable()
 	if err != nil {
-		return fmt.Errorf("SQL Server Version Data Error : %s", err)
+		return fmt.Errorf("SystemVersion Check error : %s", err)
 	}
-	fmt.Printf("%s Database Version %s\n", infostring, v.String())
+	if ok {
+		v, err := getSystemVersion()
+		if err != nil {
+			return fmt.Errorf("SystemVersion Check error : %s", err)
+		}
+		fmt.Printf("%s Database Version %s\n", infostring, v.String())
+	} else {
+		fmt.Printf("%s SystemVersion Table is not exists\n", infostring)
+	}
+
 	return nil
 }
 
@@ -200,7 +210,7 @@ func updateDatabaseAction(c *cli.Context) error {
 	return nil
 }
 
-func checkExecuteDatabase() error {
+func tryDatabaseConnect() error {
 	db, err := sql.Open("sqlserver", getConnectionString())
 	if err != nil {
 		return err
@@ -213,33 +223,40 @@ func checkExecuteDatabase() error {
 	return nil
 }
 
-func checkDatabaseVersion() (version, error) {
-	v := version{mejor: 0, miner: 0, revision: 0}
+func isExistsSystemVersionTable() (bool, error) {
 	db, err := sql.Open("sqlserver", getConnectionString())
 	if err != nil {
-		log.Fatal(err)
+		return false, err
 	}
-
-	var rows *sql.Rows
-	// table check
 	defer db.Close()
-	rows, err = db.Query("select count(*) from sys.tables where name = N'SystemVersion' ")
+
+	rows, err := db.Query("select count(*) from sys.tables where name = N'SystemVersion' ")
 	if err != nil {
-		log.Fatal(err)
+		return false, err
 	}
 	defer rows.Close()
 	for rows.Next() {
 		var count int
 		rows.Scan(&count)
 		if count == 0 {
-			return v, nil
+			return false, nil
 		}
 	}
 
-	// version check
-	rows, err = db.Query("select Mejor, Miner, Revison from dbo.SystemTable where TableName = N'SystemVersion' ")
+	return true, nil
+}
+
+func getSystemVersion() (version, error) {
+	v := version{mejor: 0, miner: 0, revision: 0}
+	db, err := sql.Open("sqlserver", getConnectionString())
 	if err != nil {
-		log.Fatal(err)
+		return v, err
+	}
+	defer db.Close()
+
+	rows, err := db.Query("select Mejor, Miner, Revison from dbo.SystemTable where TableName = N'SystemVersion' ")
+	if err != nil {
+		return v, err
 	}
 	defer rows.Close()
 	for rows.Next() {
@@ -253,6 +270,37 @@ func checkDatabaseVersion() (version, error) {
 		v.revision = revision
 	}
 	return v, nil
+}
+
+func getTableVersion() (map[string]version, error) {
+	db, err := sql.Open("sqlserver", getConnectionString())
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+
+	tableVersion := map[string]version{}
+	rows, err := db.Query("select TableName, Mejor, Miner, Revison from dbo.SystemTable where TableName <> N'SystemVersion' ")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var tableName string
+		var mejor, miner, revision int
+		rows.Scan(
+			&tableName,
+			&mejor,
+			&miner,
+			&revision)
+		v := version{}
+		v.mejor = mejor
+		v.miner = miner
+		v.revision = revision
+		tableVersion[tableName] = v
+	}
+
+	return tableVersion, nil
 }
 
 func queryVersionAction(c *cli.Context) error {
