@@ -22,6 +22,8 @@ var db string
 var port string
 var folder string
 
+var databaseVersion version
+
 var okstring = "[\x1b[32m OK \x1b[0m]"
 var failstring = "[\x1b[31mFAIL\x1b[0m]"
 var infostring = "[\x1b[36mINFO\x1b[0m]"
@@ -123,6 +125,10 @@ func main() {
 				passwordFlag,
 				databaseFlag,
 			},
+			Before: func(c *cli.Context) error {
+				fmt.Printf("%s Start Check Database Version\n", infostring)
+				return nil
+			},
 			Action: getDatabaseVersionAction,
 		},
 		{
@@ -137,6 +143,10 @@ func main() {
 				databaseFlag,
 				folderFlag,
 			},
+			Before: func(c *cli.Context) error {
+				fmt.Printf("%s Start Update Database\n", infostring)
+				return nil
+			},
 			Action: updateDatabaseAction,
 		},
 		{
@@ -145,6 +155,10 @@ func main() {
 			Usage:   "Get Query Version",
 			Flags: []cli.Flag{
 				folderFlag,
+			},
+			Before: func(c *cli.Context) error {
+				fmt.Printf("%s Start Queru Version\n", infostring)
+				return nil
 			},
 			Action: getQueryVersionAction,
 		},
@@ -155,6 +169,10 @@ func main() {
 			Flags: []cli.Flag{
 				folderFlag,
 			},
+			Before: func(c *cli.Context) error {
+				fmt.Printf("%s Start Queru Version to Table\n", infostring)
+				return nil
+			},
 			Action: getQueryTable2VersionAction,
 		},
 		{
@@ -163,6 +181,10 @@ func main() {
 			Usage:   "Get Query Version to Table",
 			Flags: []cli.Flag{
 				folderFlag,
+			},
+			Before: func(c *cli.Context) error {
+				fmt.Printf("%s Start Queru Version to Table\n", infostring)
+				return nil
 			},
 			Action: getQueryVersion2TableAction,
 		},
@@ -193,7 +215,6 @@ func getConnectionString() string {
 
 func getDatabaseVersionAction(c *cli.Context) error {
 	var err error
-	fmt.Printf("%s Start Check Database Version\n", infostring)
 
 	err = tryDatabaseConnect()
 	if err != nil {
@@ -201,16 +222,16 @@ func getDatabaseVersionAction(c *cli.Context) error {
 	}
 	fmt.Printf("%s SQL Server Connect\n", okstring)
 
-	ok, err := isExistsSystemVersionTable()
+	ok, err := isExistsTable("SystemVersion")
 	if err != nil {
 		return fmt.Errorf("SystemVersion Check error : %s", err)
 	}
 	if ok {
-		v, err := getSystemVersion()
+		databaseVersion, err = getSystemVersion()
 		if err != nil {
 			return fmt.Errorf("SystemVersion Check error : %s", err)
 		}
-		fmt.Printf("%s Database Version %s\n", infostring, v.String())
+		fmt.Printf("%s Database Version %s\n", infostring, databaseVersion.String())
 	} else {
 		fmt.Printf("%s SystemVersion Table is not exists\n", infostring)
 	}
@@ -220,11 +241,48 @@ func getDatabaseVersionAction(c *cli.Context) error {
 
 func updateDatabaseAction(c *cli.Context) error {
 	var err error
-	fmt.Printf("%s Start Update Database Version\n", infostring)
-	err = getDatabaseVersionAction(c)
+
+	//err = getDatabaseVersionAction(c)
 	if err != nil {
 		return err
 	}
+
+	// 	versions, err := getVersionAtQuery(folder)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	version2Table, err := getVersion2TableAtQuery(folder)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%s Get Query Directory Version\n", okstring)
+
+	for v, ts := range version2Table {
+		fmt.Println(v)
+		for _, t := range ts {
+			fmt.Printf("  %s\n", t)
+		}
+	}
+
+	// 	dbTables := map[string]bool{}
+	//	for _, v := range versions {
+	//		if databaseVersion.compare(v) < 0 {
+	//			for _, t := range version2Table[v.String()] {
+	//				if _, ok := dbTables[t]; !ok {
+	//					if existTable, err := isExistsTable(); !existTable {
+	//						err = createTable(folder, t)
+	//						if err != nil {
+	//							return err
+	//						}
+	//
+	//					}
+	//				}
+	//				fmt.Printf("[    ] Start Update %s Table ...", t)
+	//				fmt.Printf("\r%s Complete Update %s Table \n", okstring, t)
+	//			}
+	//		}
+	//	}
+
 	return nil
 }
 
@@ -280,14 +338,14 @@ func tryDatabaseConnect() error {
 	return nil
 }
 
-func isExistsSystemVersionTable() (bool, error) {
+func isExistsTable(tableName string) (bool, error) {
 	db, err := sql.Open("sqlserver", getConnectionString())
 	if err != nil {
 		return false, err
 	}
 	defer db.Close()
 
-	rows, err := db.Query("select count(*) from sys.tables where name = N'SystemVersion' ")
+	rows, err := db.Query("select count(*) from sys.tables where name = ? ", tableName)
 	if err != nil {
 		return false, err
 	}
@@ -372,8 +430,13 @@ func createTable(dir, tableName string) error {
 		return err
 	}
 	defer db.Close()
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
 
-	_, err = db.Exec(string(b))
+	// TODO Transaction?
+	_, err = tx.Exec(string(b))
 	if err != nil {
 		return err
 	}
