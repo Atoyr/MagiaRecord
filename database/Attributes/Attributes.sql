@@ -6,8 +6,6 @@ create table Attributes (
     ID ASC
   ) WITH (PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF)
 );
-GO
 
 insert into SystemVersion values('Attributes',0,0,0);
-GO
 

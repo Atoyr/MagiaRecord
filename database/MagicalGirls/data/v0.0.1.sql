@@ -12,6 +12,6 @@ insert into MagicalGirls values (9,N'美樹さやか',N'',N'miki sayaka', 4,5, 2
 insert into MagicalGirls values (10,N'佐倉杏子',N'',N'sakura kyouko', 4,5, 1, 2, 1,1,2,1, N'ったく、見てらんねーな',N'盟神抉槍',N'自棄のドッペル');
 
 
-update SystemVersion set Mejor = 0, Miner = 0,  Revison = 1 where TableName = 'MagicalGirls';
+update SystemVersion set Mejor = 0, Minor = 0,  Revison = 1 where TableName = 'MagicalGirls';
 
 commit tran

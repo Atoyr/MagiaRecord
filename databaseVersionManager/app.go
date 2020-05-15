@@ -276,6 +276,22 @@ func updateDatabaseAction(c *cli.Context) error {
 		}
 	}
 
+	isSystable, err := isExistsTable(db, "SystemVersion")
+	if err != nil {
+		return err
+	}
+	if !isSystable {
+		fmt.Printf("%s System Version Table is not exists\n", infostring)
+		err = createSystemVersionTable(db, folder)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("%s Create System Version Table\n", okstring)
+	} else {
+		fmt.Printf("%s System Version Table is exists\n", infostring)
+	}
+	fmt.Printf("%s Get SystemTable Version\n", okstring)
+
 	dbTables := map[string]bool{}
 	for _, v := range versions {
 		if databaseVersion.compare(v) < 0 {
@@ -285,18 +301,28 @@ func updateDatabaseAction(c *cli.Context) error {
 			}
 			for _, t := range version2Table[v.String()] {
 				if _, ok := dbTables[t]; !ok {
-					if existTable, err := isExistsTable(db, t); !existTable {
-						err = createTable(tx, folder, t)
+					existTable, err := isExistsTable(db, t)
+					if err != nil {
+						tx.Rollback()
+						return err
+					}
+					if !existTable {
+
+						fmt.Printf("[    ] Start Create %s Table ...", t)
+						err = createTable(db, folder, t)
 						if err != nil {
 							tx.Rollback()
+							fmt.Println()
 							return err
 						}
+						fmt.Printf("\r%s Complete Create %s Table \n", okstring, t)
 					}
 				}
 				fmt.Printf("[    ] Start Update %s Table ...", t)
 				err = executeVersionData(tx, folder, t, v)
 				if err != nil {
 					tx.Rollback()
+					fmt.Println()
 					return err
 				}
 				fmt.Printf("\r%s Complete Update %s Table \n", okstring, t)
@@ -365,7 +391,7 @@ func tryDatabaseConnect() error {
 }
 
 func isExistsTable(db *sql.DB, tableName string) (bool, error) {
-	rows, err := db.Query("select count(*) from sys.tables where name = ? ", tableName)
+	rows, err := db.Query("select count(*) from sys.tables where name = @p1 ", tableName)
 	if err != nil {
 		return false, err
 	}
@@ -384,7 +410,7 @@ func isExistsTable(db *sql.DB, tableName string) (bool, error) {
 func getSystemVersion(db *sql.DB) (version, error) {
 	v := version{mejor: 0, miner: 0, revision: 0}
 
-	rows, err := db.Query("select Mejor, Miner, Revison from dbo.SystemVersion where TableName = N'SystemVersion' ")
+	rows, err := db.Query("select Mejor, Minor, Revison from dbo.SystemVersion where TableName = N'SystemVersion' ")
 	if err != nil {
 		return v, err
 	}
@@ -404,7 +430,7 @@ func getSystemVersion(db *sql.DB) (version, error) {
 
 func getTableVersion(db *sql.DB) (map[string]version, error) {
 	tableVersion := map[string]version{}
-	rows, err := db.Query("select TableName, Mejor, Miner, Revison from dbo.SystemTable where TableName <> N'SystemVersion' ")
+	rows, err := db.Query("select TableName, Mejor, Minor, Revison from dbo.SystemTable where TableName <> N'SystemVersion' ")
 	if err != nil {
 		return nil, err
 	}
@@ -427,14 +453,29 @@ func getTableVersion(db *sql.DB) (map[string]version, error) {
 	return tableVersion, nil
 }
 
-func createTable(tx *sql.Tx, dir, tableName string) error {
+func createTable(db *sql.DB, dir, tableName string) error {
 	path := filepath.Join(dir, tableName, fmt.Sprintf("%s.sql", tableName))
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
 	}
 
-	_, err = tx.Exec(string(b))
+	_, err = db.Exec(string(b))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func createSystemVersionTable(db *sql.DB, dir string) error {
+	path := filepath.Join(dir, "SystemVersion.sql")
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec(string(b))
 	if err != nil {
 		return err
 	}
@@ -443,7 +484,7 @@ func createTable(tx *sql.Tx, dir, tableName string) error {
 }
 
 func executeVersionData(tx *sql.Tx, dir, tableName string, v version) error {
-	path := filepath.Join(dir, tableName, fmt.Sprintf("v%s.sql", v.String()))
+	path := filepath.Join(dir, tableName, "data", fmt.Sprintf("v%s.sql", v.String()))
 	b, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
