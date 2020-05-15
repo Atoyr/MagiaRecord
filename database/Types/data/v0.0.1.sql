@@ -9,6 +9,6 @@ insert into Types values(7,'ultimet','アルティメット');
 insert into Types values(8,'ringmagia','円環マギア');
 insert into Types values(9,'ringmagia','円環サポート');
 
-update SystemVersion set Mejor = 0, Minor = 0,  Revison = 1 where TableName = 'Types';
+update SystemVersion set Mejor = 0, Minor = 0,  Revision = 1 where TableName = 'Types';
 
 commit tran
