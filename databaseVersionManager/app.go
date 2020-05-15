@@ -290,11 +290,11 @@ func updateDatabaseAction(c *cli.Context) error {
 	} else {
 		fmt.Printf("%s System Version Table is exists\n", infostring)
 	}
-	fmt.Printf("%s Get SystemTable Version\n", okstring)
 
 	dbTables := map[string]bool{}
 	for _, v := range versions {
 		if databaseVersion.compare(v) < 0 {
+			fmt.Printf("%s Update Database Versoin %s -> %s\n", infostring, databaseVersion.String(), v.String())
 			tx, err := db.Begin()
 			if err != nil {
 				return err
@@ -327,11 +327,19 @@ func updateDatabaseAction(c *cli.Context) error {
 				}
 				fmt.Printf("\r%s Complete Update %s Table \n", okstring, t)
 			}
+			err = updateSystemVersion(tx, v)
+			if err != nil {
+				tx.Rollback()
+				return err
+			}
 			err = tx.Commit()
 			if err != nil {
 				tx.Rollback()
 				return err
 			}
+			databaseVersion = v
+		} else {
+			fmt.Printf("%s Database is already updated %s\n", infostring, databaseVersion.String())
 		}
 	}
 
@@ -410,7 +418,7 @@ func isExistsTable(db *sql.DB, tableName string) (bool, error) {
 func getSystemVersion(db *sql.DB) (version, error) {
 	v := version{mejor: 0, miner: 0, revision: 0}
 
-	rows, err := db.Query("select Mejor, Minor, Revison from dbo.SystemVersion where TableName = N'SystemVersion' ")
+	rows, err := db.Query("select Mejor, Minor, Revision from dbo.SystemVersion where TableName = N'SystemVersion' ")
 	if err != nil {
 		return v, err
 	}
@@ -430,7 +438,7 @@ func getSystemVersion(db *sql.DB) (version, error) {
 
 func getTableVersion(db *sql.DB) (map[string]version, error) {
 	tableVersion := map[string]version{}
-	rows, err := db.Query("select TableName, Mejor, Minor, Revison from dbo.SystemTable where TableName <> N'SystemVersion' ")
+	rows, err := db.Query("select TableName, Mejor, Minor, Revision from dbo.SystemVersion where TableName <> N'SystemVersion' ")
 	if err != nil {
 		return nil, err
 	}
@@ -476,6 +484,25 @@ func createSystemVersionTable(db *sql.DB, dir string) error {
 	}
 
 	_, err = db.Exec(string(b))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func updateSystemVersion(tx *sql.Tx, v version) error {
+	_, err := tx.Exec(`
+  update
+    SystemVersion
+  set
+    Mejor = @p1
+   ,Minor = @p2
+   ,Revision = @p3
+  where
+    TableName = 'SystemVersion'
+  `, v.mejor, v.miner, v.revision)
+
 	if err != nil {
 		return err
 	}
