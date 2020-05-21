@@ -1,6 +1,9 @@
 
 export default {
   mode: 'ssr',
+  env : {
+    bffUrl: process.env.BFF_URL || 'http://localhost:3000'
+  },
   /*
   ** Headers of the page
   */
