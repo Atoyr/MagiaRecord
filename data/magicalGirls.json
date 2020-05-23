@@ -1,6 +1,6 @@
 [
   {
-    "key": "kaname iroha",
+    "key": "tamaki iroha",
     "name": "環 いろは",
     "version": "",
     "isLimited": false,
@@ -22,17 +22,90 @@
     },
     "connect": {
       "name": "一緒にいるから大丈夫だよ",
-      "effects": [],
+      "effects": [
+        {
+          "effectName": "HP回復",
+          "effectType": "recovery",
+          "effectLevel": 8,
+          "target": "friend you",
+          "termTurn": 0
+        },
+        {
+          "effectName": "攻撃力UP",
+          "effectType": "buff",
+          "effectLevel": 6,
+          "target": "friend you",
+          "termTurn": 1
+        },
+        {
+          "effectName": "MP回復",
+          "effectType": "recovery",
+          "effectLevel": 3,
+          "target": "nanami yachiyo",
+          "termTurn": 0
+        }
+      ],
       "useTurn": 0
     },
     "magia": {
       "name": "ストラーダ・フトゥーロ",
-      "effects": [],
+      "effects": [
+        {
+          "effectName": "ダメージ",
+          "effectType": "attack",
+          "effectLevel": 6,
+          "target": "enemy all",
+          "termTurn": 0
+        },
+        {
+          "effectName": "HP回復",
+          "effectType": "recovery",
+          "effectLevel": 3,
+          "target": "friend all",
+          "termTurn": 0
+        },
+        {
+          "effectName": "蘇生",
+          "effectType": "recovery",
+          "effectLevel": 1,
+          "target": "friend randam",
+          "termTurn": 0
+        }
+      ],
       "useTurn": 0
     },
     "doppel": {
       "name": "沈黙のドッペル",
-      "effects": [],
+      "effects": [
+        {
+          "effectName": "ダメージ",
+          "effectType": "attack",
+          "effectLevel": 8,
+          "target": "enemy all",
+          "termTurn": 0
+        },
+        {
+          "effectName": "状態異常解除",
+          "effectType": "release",
+          "effectLevel": 0,
+          "target": "friend all",
+          "termTurn": 0
+        },
+        {
+          "effectName": "HP回復",
+          "effectType": "recovery",
+          "effectLevel": 3,
+          "target": "friend all",
+          "termTurn": 0
+        },
+        {
+          "effectName": "蘇生",
+          "effectType": "recovery",
+          "effectLevel": 1,
+          "target": "friend randam",
+          "termTurn": 0
+        }
+      ],
       "useTurn": 0
     },
     "status": {
