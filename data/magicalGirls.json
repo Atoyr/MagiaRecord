@@ -1,410 +1,495 @@
-{
-  "id": 1,
-  "name": "環いろは",
-  "version": "",
-  "isLimited": false,
-  "minRare": 1,
-  "maxRare": 5,
-  "attribute": "light",
-  "attributeName": "光",
-  "type": "heal",
-  "typeName": "ヒール",
-  "accele":2,
-  "blastv": 0,
-  "blasth": 2,
-  "charge": 1,
-  "connect": {
-    "name": "一緒にいるから大丈夫だよ",
-    "skils": []
+[
+  {
+    "key": "kaname iroha",
+    "name": "環 いろは",
+    "version": "",
+    "isLimited": false,
+    "minRare": 1,
+    "maxRare": 5,
+    "attribute": {
+      "key":"light",
+      "name": "光"
+    },
+    "type": {
+      "key":"heal",
+      "name": "ヒール"
+    },
+    "disk" : {
+      "accele":2,
+      "blastv": 0,
+      "blasth": 2,
+      "charge": 1
+    },
+    "connect": {
+      "name": "一緒にいるから大丈夫だよ",
+      "effects": [],
+      "useTurn": 0
+    },
+    "magia": {
+      "name": "ストラーダ・フトゥーロ",
+      "effects": [],
+      "useTurn": 0
+    },
+    "doppel": {
+      "name": "沈黙のドッペル",
+      "effects": [],
+      "useTurn": 0
+    },
+    "status": {
+      "hp": 22020,
+      "attack": 6276,
+      "difense": 8332
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 6,
+      "difense": 8,
+      "accele": 7,
+      "blast": 7,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
   },
-  "magia": {
-    "name": "ストラーダ・フトゥーロ",
-    "skils": []
+  {
+    "key": "nanami yachiyo",
+    "name": "七海 やちよ",
+    "version": "",
+    "isLimited": false,
+    "minRare": 2,
+    "maxRare": 5,
+    "attribute": {
+      "key": "aqua",
+      "name": "水"
+    },
+    "type": {
+      "key": "balance",
+      "name": "バランス"
+    },
+    "disk": { 
+      "accele":1,
+      "blastv": 0,
+      "blasth": 3,
+      "charge": 1
+    },
+    "connect": {
+      "name": "道は照らしておくから",
+      "effects": []
+    },
+    "magia": {
+      "name": "アブソリュート・レイン",
+      "effects": []
+    },
+    "doppel": {
+      "name": "モギリのドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 23479,
+      "attack": 7588,
+      "difense": 8316
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 7,
+      "difense": 7,
+      "accele": 5,
+      "blast": 9,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
   },
-  "doppel": {
-    "name": "沈黙のドッペル",
-    "skils": []
+  {
+    "key": "yui tsuruno",
+    "name": "由比 鶴乃",
+    "version": "",
+    "isLimited": false,
+    "minRare": 2,
+    "maxRare": 5,
+    "attribute": {
+      "key":"flame",
+      "name": "火"
+    },
+    "type": {
+      "name":"magia",
+      "name": "マギア"
+    },
+    "disk": { 
+      "accele":2,
+      "blastv": 2,
+      "blasth": 0,
+      "charge": 1
+    },
+    "connect": {
+      "name": "出たとこ勝負で行こうよ！",
+      "effects": []
+    },
+    "magia": {
+      "name": "炎扇斬舞",
+      "effects": []
+    },
+    "doppel": {
+      "name": "団欒のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 18927,
+      "attack": 8552,
+      "difense": 6056
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 8,
+      "difense": 6,
+      "accele": 7,
+      "blast": 7,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
   },
-  "status": {
-    "hp": 22020,
-    "attack": 6276,
-    "difense": 8332
+  {
+    "key": "mitsuki ferishia",
+    "name": "深月 フェリシア",
+    "version": "",
+    "isLimited": false,
+    "minRare": 2,
+    "maxRare": 5,
+    "attribute": {
+      "key":"dark",
+      "name": "闇"
+    },
+    "type": {
+      "key":"attack",
+      "name": "アタック"
+    },
+    "disk": { 
+      "accele":1,
+      "blastv": 1,
+      "blasth": 1,
+      "charge": 2
+    },
+    "connect": {
+      "name": "ガツンと任せとけって！",
+      "effects": []
+    },
+    "magia": {
+      "name": "ウルトラグレートビッグハンマー",
+      "effects": []
+    },
+    "doppel": {
+      "name": "攪拌のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 21087,
+      "attack": 8700,
+      "difense": 6530
+    },
+    "awakeRate": {
+      "hp": 6,
+      "attack": 9,
+      "difense": 5,
+      "accele": 5,
+      "blast": 7,
+      "charge": 7
+    },
+    "UltimetAbility": {
+    }
   },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 6,
-    "difense": 8,
-    "accele": 7,
-    "blast": 7,
-    "charge": 5
+  {
+    "key": "futaba sana",
+    "name": "二葉 さな",
+    "version": "",
+    "isLimited": false,
+    "minRare": 2,
+    "maxRare": 5,
+    "attribute": {
+      "key":"forest",
+      "name": "木"
+    },
+    "type": {
+      "key":"difense",
+      "name": "ディフェンス"
+    },
+    "disk": { 
+      "accele":1,
+      "blastv": 1,
+      "blasth": 1,
+      "charge": 2
+    },
+    "connect": {
+      "name": "私が必要なら、いくらでも",
+      "effects": []
+    },
+    "magia": {
+      "name": "フォルターゲフェングニス",
+      "effects": []
+    },
+    "doppel": {
+      "name": "無色透明のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 25825,
+      "attack": 6520,
+      "difense": 9080
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 5,
+      "difense": 9,
+      "accele": 5,
+      "blast": 7,
+      "charge": 7
+    },
+    "UltimetAbility": {
+    }
+  },
+  {
+    "key": "kaname madoka",
+    "name": "鹿目 まどか",
+    "version": "",
+    "isLimited": false,
+    "minRare": 4,
+    "maxRare": 5,
+    "attribute": {
+      "key": "light",
+      "name": "光"
+    },
+    "type": {
+      "key": "heal",
+      "name": "回復"
+    },
+    "disk": { 
+      "accele":2,
+      "blastv": 1,
+      "blasth": 1,
+      "charge": 1
+    },
+    "connect": {
+      "name": "私が受け止めてあげるから",
+      "effects": []
+    },
+    "magia": {
+      "name": "プルウィア☆マギカ",
+      "effects": []
+    },
+    "doppel": {
+      "name": "慈悲のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 24336,
+      "attack": 6832,
+      "difense": 9276
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 8,
+      "difense": 6,
+      "accele": 7,
+      "blast": 7,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
+  },
+  {
+    "key": "akemi homura",
+    "name": "暁美 ほむら",
+    "version": "",
+    "isLimited": true,
+    "minRare": 4,
+    "maxRare": 5,
+    "attribute": {
+      "key": "attack",
+      "name": "アタック"
+    },
+    "type": {
+      "key": "dark",
+      "name": "闇"
+    },
+    "disk": { 
+      "accele":1,
+      "blastv": 1,
+      "blasth": 2,
+      "charge": 1
+    },
+    "connect": {
+      "name": "あなたの獲物よ",
+      "effects": []
+    },
+    "magia": {
+      "name": "ミサイルによる集中砲火",
+      "effects": []
+    },
+    "doppel": {
+      "name": "業因のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 21411,
+      "attack": 9294,
+      "difense": 8202
+    },
+    "awakeRate": {
+      "hp": 6,
+      "attack": 9,
+      "difense": 5,
+      "accele": 5,
+      "blast": 9,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
+  },
+  {
+    "key": "tomoe mami",
+    "name": "巴 マミ",
+    "version": "",
+    "isLimited": false,
+    "minRare": 4,
+    "maxRare": 5,
+    "attribute": {
+      "key": "forest",
+      "name": "木"
+    },
+    "type": {
+      "key": "magia",
+      "name": "マギア"
+    },
+    "disk": { 
+      "accele":2,
+      "blastv": 0,
+      "blasth": 1,
+      "charge": 2
+    },
+    "connect": {
+      "name": "ティロ・デュエット！",
+      "effects": []
+    },
+    "magia": {
+      "name": "ティロ・フィナーレ",
+      "effects": []
+    },
+    "doppel": {
+      "name": "ご招待のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 20941,
+      "attack": 9652,
+      "difense": 6553
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 8,
+      "difense": 6,
+      "accele": 7,
+      "blast": 5,
+      "charge": 7
+    },
+    "UltimetAbility": {
+    }
+  },
+  {
+    "key": "miki sayaka",
+    "name": "美樹 さやか",
+    "version": "",
+    "isLimited": false,
+    "minRare": 4,
+    "maxRare": 5,
+    "attribute": {
+      "key": "aqua",
+      "name": "水"
+    },
+    "type": {
+      "key": "difense",
+      "name": "ディフェンス"
+    },
+    "disk": { 
+      "accele":2,
+      "blastv": 0,
+      "blasth": 1,
+      "charge": 2
+    },
+    "connect": {
+      "name": "ここであたしの出番でしょ！",
+      "effects": []
+    },
+    "magia": {
+      "name": "プレスティッシモ・アジタート",
+      "effects": []
+    },
+    "doppel": {
+      "name": "恋慕のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 29266,
+      "attack": 7595,
+      "difense": 9493
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 5,
+      "difense": 9,
+      "accele": 5,
+      "blast": 7,
+      "charge": 7
+    },
+    "UltimetAbility": {
+    }
+  },
+  {
+    "key": "sakura kyoko",
+    "name": "佐倉 杏子",
+    "version": "",
+    "isLimited": false,
+    "minRare": 4,
+    "maxRare": 5,
+    "attribute": {
+      "key": "attack",
+      "name": "アタック"
+    },
+    "type": {
+      "key": "flame",
+      "name": "火"
+    },
+    "disk": { 
+      "accele":1,
+      "blastv": 1,
+      "blasth": 2,
+      "charge": 1
+    },
+    "connect": {
+      "name": "ったく、見てらんねーな",
+      "effects": []
+    },
+    "magia": {
+      "name": "盟神抉槍",
+      "effects": []
+    },
+    "doppel": {
+      "name": "自棄のドッペル",
+      "effects": []
+    },
+    "status": {
+      "hp": 22580,
+      "attack": 9592,
+      "difense": 7268
+    },
+    "awakeRate": {
+      "hp": 7,
+      "attack": 8,
+      "difense": 6,
+      "accele": 6,
+      "blast": 8,
+      "charge": 5
+    },
+    "UltimetAbility": {
+    }
   }
-},
-{
-  "id": 2,
-  "name": "七海やちよ",
-  "version": "",
-  "isLimited": false,
-  "minRare": 2,
-  "maxRare": 5,
-  "attribute": "aqua",
-  "attributeName": "水",
-  "type": "balance",
-  "typeName": "バランス",
-  "accele":1,
-  "blastv": 0,
-  "blasth": 3,
-  "charge": 1,
-  "connect": {
-    "name": "道は照らしておくから",
-    "skils": []
-  },
-  "magia": {
-    "name": "アブソリュート・レイン",
-    "skils": []
-  },
-  "doppel": {
-    "name": "モギリのドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 23479,
-    "attack": 7588,
-    "difense": 8316
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 7,
-    "difense": 7,
-    "accele": 5,
-    "blast": 9,
-    "charge": 5
-  }
-},
-{
-  "id": 3,
-  "name": "由比鶴乃",
-  "version": "",
-  "isLimited": false,
-  "minRare": 2,
-  "maxRare": 5,
-  "attribute": "flame",
-  "attributeName": "火",
-  "type": "magia",
-  "typeName": "マギア",
-  "accele":2,
-  "blastv": 2,
-  "blasth": 0,
-  "charge": 1,
-  "connect": {
-    "name": "出たとこ勝負で行こうよ！",
-    "skils": []
-  },
-  "magia": {
-    "name": "炎扇斬舞",
-    "skils": []
-  },
-  "doppel": {
-    "name": "団欒のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 18927,
-    "attack": 8552,
-    "difense": 6056
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 8,
-    "difense": 6,
-    "accele": 7,
-    "blast": 7,
-    "charge": 5
-  }
-},
-{
-  "id": 4,
-  "name": "深月フェリシア",
-  "version": "",
-  "isLimited": false,
-  "minRare": 2,
-  "maxRare": 5,
-  "attribute": "dark",
-  "attributeName": "闇",
-  "type": "attack",
-  "typeName": "アタック",
-  "accele":1,
-  "blastv": 1,
-  "blasth": 1,
-  "charge": 2,
-  "connect": {
-    "name": "ガツンと任せとけって！",
-    "skils": []
-  },
-  "magia": {
-    "name": "ウルトラグレートビッグハンマー",
-    "skils": []
-  },
-  "doppel": {
-    "name": "攪拌のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 21087,
-    "attack": 8700,
-    "difense": 6530
-  },
-  "awakeRate": {
-    "hp": 6,
-    "attack": 9,
-    "difense": 5,
-    "accele": 5,
-    "blast": 7,
-    "charge": 7
-  }
-},
-{
-  "id": 5,
-  "name": "二葉さな",
-  "version": "",
-  "isLimited": false,
-  "minRare": 2,
-  "maxRare": 5,
-  "attribute": "forest",
-  "attributeName": "木",
-  "type": "difense",
-  "typeName": "ディフェンス",
-  "accele":1,
-  "blastv": 1,
-  "blasth": 1,
-  "charge": 2,
-  "connect": {
-    "name": "私が必要なら、いくらでも",
-    "skils": []
-  },
-  "magia": {
-    "name": "フォルターゲフェングニス",
-    "skils": []
-  },
-  "doppel": {
-    "name": "無色透明のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 25825,
-    "attack": 6520,
-    "difense": 9080
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 5,
-    "difense": 9,
-    "accele": 5,
-    "blast": 7,
-    "charge": 7
-  }
-},
-{
-  "id": 6,
-  "name": "鹿目まどか",
-  "version": "",
-  "isLimited": false,
-  "minRare": 4,
-  "maxRare": 5,
-  "attribute": "light",
-  "attributeName": "光",
-  "type": "heal",
-  "typeName": "回復",
-  "accele":2,
-  "blastv": 1,
-  "blasth": 1,
-  "charge": 1,
-  "connect": {
-    "name": "私が受け止めてあげるから",
-    "skils": []
-  },
-  "magia": {
-    "name": "プルウィア☆マギカ",
-    "skils": []
-  },
-  "doppel": {
-    "name": "慈悲のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 24336,
-    "attack": 6832,
-    "difense": 9276
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 8,
-    "difense": 6,
-    "accele": 7,
-    "blast": 7,
-    "charge": 5
-  }
-},
-{
-  "id": 7,
-  "name": "暁美ほむら",
-  "version": "",
-  "isLimited": true,
-  "minRare": 4,
-  "maxRare": 5,
-  "attribute": "attack",
-  "attributeName": "アタック",
-  "type": "dark",
-  "typeName": "闇",
-  "accele":1,
-  "blastv": 1,
-  "blasth": 2,
-  "charge": 1,
-  "connect": {
-    "name": "あなたの獲物よ",
-    "skils": []
-  },
-  "magia": {
-    "name": "ミサイルによる集中砲火",
-    "skils": []
-  },
-  "doppel": {
-    "name": "業因のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 21411,
-    "attack": 9294,
-    "difense": 8202
-  },
-  "awakeRate": {
-    "hp": 6,
-    "attack": 9,
-    "difense": 5,
-    "accele": 5,
-    "blast": 9,
-    "charge": 5
-  }
-},
-{
-  "id": 8,
-  "name": "巴マミ",
-  "version": "",
-  "isLimited": false,
-  "minRare": 4,
-  "maxRare": 5,
-  "attribute": "forest",
-  "attributeName": "木",
-  "type": "magia",
-  "typeName": "マギア",
-  "accele":2,
-  "blastv": 0,
-  "blasth": 1,
-  "charge": 2,
-  "connect": {
-    "name": "ティロ・デュエット！",
-    "skils": []
-  },
-  "magia": {
-    "name": "ティロ・フィナーレ",
-    "skils": []
-  },
-  "doppel": {
-    "name": "ご招待のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 20941,
-    "attack": 9652,
-    "difense": 6553
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 8,
-    "difense": 6,
-    "accele": 7,
-    "blast": 5,
-    "charge": 7
-  }
-},
-{
-  "id": 9,
-  "name": "美樹さやか",
-  "version": "",
-  "isLimited": false,
-  "minRare": 4,
-  "maxRare": 5,
-  "attribute": "aqua",
-  "attributeName": "水",
-  "type": "difense",
-  "typeName": "ディフェンス",
-  "accele":2,
-  "blastv": 0,
-  "blasth": 1,
-  "charge": 2,
-  "connect": {
-    "name": "ここであたしの出番でしょ！",
-    "skils": []
-  },
-  "magia": {
-    "name": "プレスティッシモ・アジタート",
-    "skils": []
-  },
-  "doppel": {
-    "name": "恋慕のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 29266,
-    "attack": 7595,
-    "difense": 9493
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 5,
-    "difense": 9,
-    "accele": 5,
-    "blast": 7,
-    "charge": 7
-  }
-},
-{
-  "id": 10,
-  "name": "佐倉杏子",
-  "version": "",
-  "isLimited": false,
-  "minRare": 4,
-  "maxRare": 5,
-  "attribute": "attack",
-  "attributeName": "アタック",
-  "type": "flame",
-  "typeName": "火",
-  "accele":1,
-  "blastv": 1,
-  "blasth": 2,
-  "charge": 1,
-  "connect": {
-    "name": "ったく、見てらんねーな",
-    "skils": []
-  },
-  "magia": {
-    "name": "盟神抉槍",
-    "skils": []
-  },
-  "doppel": {
-    "name": "自棄のドッペル",
-    "skils": []
-  },
-  "status": {
-    "hp": 22580,
-    "attack": 9592,
-    "difense": 7268
-  },
-  "awakeRate": {
-    "hp": 7,
-    "attack": 8,
-    "difense": 6,
-    "accele": 6,
-    "blast": 8,
-    "charge": 5
-  }
-}
+]
