@@ -28,11 +28,3 @@ type Skill struct {
 	Effects []Effect `json:"effects"`
 	UseTurn int      `json:"useTurn"`
 }
-
-type Effect struct {
-	EffectName  string `json:"effectName"`
-	EffectType  string `json:"effectType"`
-	EffectLevel int    `json:"effectLevel"`
-	Target      string `json:"target"`
-	TermTurn    int    `json:"termTurn"`
-}
