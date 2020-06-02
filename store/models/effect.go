@@ -8,3 +8,9 @@ type Effect struct {
 	EffectActionName     string `json:"effectAction"`
 	EffectActivationName string `json:"effectActivation"`
 }
+
+type EffectDtil struct {
+	*Effect
+	Target string `json:"target"`
+	Term   int    `json:"term"`
+}
