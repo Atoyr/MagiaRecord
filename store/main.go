@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Failed to 1: %v", err)
 	}
 
-	// mergeMagicalGirls(ctx, app)
+	mergeMagicalGirls(ctx, app)
 	mergeFirestore(ctx, app, "effectTypes")
 	mergeFirestore(ctx, app, "effectCategories")
 	mergeFirestore(ctx, app, "effectActions")
@@ -34,12 +34,12 @@ func mergeMagicalGirls(ctx context.Context, app *firebase.App) error {
 	// load json
 	bytes, err := ioutil.ReadFile("../data/magicalGirls.json")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to load magicalGirls.json : %v", err)
 	}
 	// JSONデコード
 	var magicalGirls []models.MagicalGirl
 	if err := json.Unmarshal(bytes, &magicalGirls); err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to Convert magicalGirls.json : %v", err)
 	}
 
 	client, err := app.Firestore(ctx)
@@ -73,12 +73,12 @@ func mergeFirestore(ctx context.Context, app *firebase.App, name string) error {
 	// load json
 	bytes, err := ioutil.ReadFile("../data/" + name + ".json")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to load %s.json : %v", name, err)
 	}
 	// JSONデコード
 	var sli []string
 	if err := json.Unmarshal(bytes, &sli); err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to Convert %s.json : %v", name, err)
 	}
 
 	client, err := app.Firestore(ctx)
@@ -104,12 +104,12 @@ func mergeEffects(ctx context.Context, app *firebase.App) error {
 	// load json
 	bytes, err := ioutil.ReadFile("../data/effects.json")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to load effects.json : %v", err)
 	}
 	// JSONデコード
 	var effects []models.Effect
 	if err := json.Unmarshal(bytes, &effects); err != nil {
-		log.Fatal(err)
+		log.Fatalf("Fail to Convert effects.json : %v", err)
 	}
 
 	client, err := app.Firestore(ctx)

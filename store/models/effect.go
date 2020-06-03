@@ -11,6 +11,7 @@ type Effect struct {
 
 type EffectDtil struct {
 	*Effect
+	Level  int    `json:"level"`
 	Target string `json:"target"`
 	Term   int    `json:"term"`
 }
