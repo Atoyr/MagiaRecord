@@ -10,7 +10,7 @@ type MagicalGirl struct {
 	Attribute      Attribute `json:"attribute"`
 	Type           Type      `json:"type"`
 	Disk           Disk      `json:"disk"`
-	Connect        Skill     `json:"connect"`
+	Connect        Connect   `json:"connect"`
 	Magia          Skill     `json:"magia"`
 	Doppel         Skill     `json:"doppel"`
 	Status         Status    `json:"status"`
