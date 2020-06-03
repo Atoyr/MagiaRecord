@@ -1,14 +1,12 @@
 <template>
   <v-app class="app">
-    <v-card
-      class="toolbar-card"
-      color="grey lighten-4"
-      flat
-      tile
-    >
-      <v-toolbar dense flat class="toolbar">
+      <v-app-bar 
+        dense 
+        flat 
+        class="toolbar">
         <v-app-bar-nav-icon>
         </v-app-bar-nav-icon>
+        <v-toolbar-title>マギアレコード データベース</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click.stop="dialog = true">
           <v-icon>mdi-filter-outline</v-icon>
@@ -16,8 +14,7 @@
         <v-dialog v-model="dialog">
             <MagicalGirlFilter />
         </v-dialog>
-      </v-toolbar>
-    </v-card>
+      </v-app-bar>
     <v-container fluid>
       <nuxt />
     </v-container>

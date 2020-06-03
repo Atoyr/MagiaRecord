@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>マギアレコード データベース</h2>
     <v-row>
     <MagicalGirlCard :size=12 />
     <AttributeChartCard :size=3 />
