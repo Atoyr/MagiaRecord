@@ -12,6 +12,7 @@
 import { mapState } from 'vuex'
 import MagicalGirlCard from  '@/components/cards/MagicalGirlCard.vue'
 import AttributeChartCard from  '@/components/cards/AttributeChartCard.vue'
+import firebase from '@/plugins/firebase'
 
 export default {
   components : {
@@ -22,32 +23,11 @@ export default {
     ...mapState(['magicalGirls'])
   },
   async fetch ({ store, params }) {
-    console.log(store)
     await store.dispatch('magicalGirl/fetchMagicalGirls');
     await store.dispatch('magicalGirl/fetchAttributes');
   },
   data() {
     return {
-      headers: [
-        {
-          text: 'ID',
-          align: ' d-none',
-          sortable: true,
-          value: 'id',
-          width: 0,
-        },
-        {
-          text: 'name',
-          align: 'start',
-          sortable: true,
-          value: 'name',
-        },
-        { text: 'Attribute', value: 'attribute' },
-        { text: 'Type', value: 'type' },
-        { text: 'HP', value: 'hp' },
-        { text: 'Attack', value: 'attack' },
-        { text: 'Deffence', value: 'deffence' },
-      ],
     }
   },
 }

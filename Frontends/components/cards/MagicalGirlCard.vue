@@ -8,16 +8,20 @@
         dense
         :headers="headers"
         :items="magicalGirls"
-        :items-per-page="5">
-        <template v-slot:item.attribute="{ item }">
-          <AttributeImage :attribute="item.attribute"></AttributeImage>
+        :locale="ja-JP"
+        :items-per-page="10">
+        <template v-slot:item.Attribute="{ item }">
+          <AttributeImage :attribute="item.Attribute.Key"></AttributeImage>
         </template>
-        <template v-slot:item.disk="{ item }">
+        <template v-slot:item.Type="{ item }">
+          <p>{{Type.Name}}</p>
+        </template>
+        <template v-slot:item.Disk="{ item }">
           <DiskImage 
-            :accele="item.disk.accele" 
-            :blastv="item.disk.blastv"
-            :blasth="item.disk.blasth"
-            :charge="item.disk.charge"></DiskImage>
+            :accele="item.Disk.Accele" 
+            :blastv="item.Disk.Blastv"
+            :blasth="item.Disk.Blasth"
+            :charge="item.Disk.Charge"></DiskImage>
         </template>
       </v-data-table>
     </v-card>
@@ -47,21 +51,39 @@ export default {
           text: 'ID',
           align: ' d-none',
           sortable: true,
-          value: 'id',
+          value: 'Key',
           width: 0,
         },
         {
           text: '名前',
           align: 'start',
           sortable: true,
-          value: 'name',
+          value: 'Name',
         },
-        { text: '属性', value: 'attribute' },
-        { text: 'タイプ', value: 'type' },
-        { text: 'Disk', value: 'disk' },
-        { text: 'HP', value: 'hp' },
-        { text: 'Attack', value: 'attack' },
-        { text: 'Deffence', value: 'deffence' },
+        {
+          text: 'バージョン',
+          align: 'start',
+          sortable: true,
+          value: 'Version',
+        },
+        {
+          text: '限定',
+          align: 'start',
+          sortable: true,
+          value: 'IsLimited',
+        },
+        { text: '属性', value: 'Attribute' },
+        { text: 'タイプ', value: 'Type.Name' },
+        { text: 'Disk', value: 'Disk' },
+        { text: 'HP', value: 'Status.Hp' },
+        { text: 'Attack', value: 'Status.Attack' },
+        { text: 'Difense', value: 'Status.Difense' },
+        // { text: '覚醒HP', value: 'AwakeRate.Hp' },
+        // { text: '覚醒Attack', value: 'AwakeRate.Attack' },
+        // { text: '覚醒Difense', value: 'AwakeRate.Difense' },
+        // { text: '覚醒Accele', value: 'AwakeRate.Accele' },
+        // { text: '覚醒Blast', value: 'AwakeRate.Blast' },
+        // { text: '覚醒Charge', value: 'AwakeRate.Charge' },
       ],
     }
   },

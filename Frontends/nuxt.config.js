@@ -1,6 +1,6 @@
 
 export default {
-  mode: 'ssr',
+  mode: 'spa',
   env : {
     bffUrl: process.env.BFF_URL || 'http://localhost:3000'
   },

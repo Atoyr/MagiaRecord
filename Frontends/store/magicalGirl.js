@@ -1,80 +1,4 @@
-const MAGICAL_GIRLS = [
-        {
-          id: 1,
-          name: '環 いろは',
-          attribute: 'light',
-          type: '回復',
-          disk: {
-            accele: 2,
-            blasth: 1,
-            blastv: 1,
-            charge: 1,
-          },
-          hp: 2400,
-          attack: 400,
-          deffence: 300,
-        },
-        {
-          id: 2,
-          name: '七海 やちよ',
-          attribute: 'aqua',
-          type: 'バランス',
-          disk: {
-            accele: 1,
-            blasth: 3,
-            blastv: 0,
-            charge: 1,
-          },
-          hp: 2500,
-          attack: 400,
-          deffence: 300,
-        },
-        {
-          id: 3,
-          name: '由依 鶴乃',
-          attribute: 'flame',
-          type: 'マギア',
-          disk: {
-            accele: 2,
-            blasth: 1,
-            blastv: 1,
-            charge: 1,
-          },
-          hp: 2400,
-          attack: 400,
-          deffence: 300,
-        },
-        {
-          id: 4,
-          name: '深月 フェリシア',
-          attribute: 'dark',
-          type: 'アタック',
-          disk: {
-            accele: 2,
-            blasth: 1,
-            blastv: 1,
-            charge: 1,
-          },
-          hp: 2400,
-          attack: 400,
-          deffence: 300,
-        },
-        {
-          id: 5,
-          name: '二葉 さな',
-          attribute: 'forest',
-          type: 'ディフェンス',
-          disk: {
-            accele: 2,
-            blasth: 1,
-            blastv: 1,
-            charge: 1,
-          },
-          hp: 2400,
-          attack: 400,
-          deffence: 400,
-        },
-      ]
+import firebase from '~/plugins/firebase'
 
 const ATTRIBUTE_COUNT = [
   {
@@ -120,6 +44,7 @@ export const mutations = {
     state.magicalGirls = [];
   },
   updateMagicalGirls(state, magicalGirls) {
+    console.log(magicalGirls.length)
     state.magicalGirls = magicalGirls;
   },
   updateAttributes(state, attributes) {
@@ -142,35 +67,51 @@ export const getters = {
   },
   magicalGirls(state) {
     return state.magicalGirls.filter(magicalGirl => {
-        return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.attribute)
+        return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.Attribute.Key)
       }).filter(magicalGirl => {
-        return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.type)
+        return state.magicalGirlFilter.types.length === 0 || state.magicalGirlFilter.types.includes(magicalGirl.Type.Key)
       }).filter(magicalGirl => {
         let result = true;
         if (!(state.magicalGirlFilter.disksRange.acceleRange[0] == 1 && state.magicalGirlFilter.disksRange.acceleRange[1] == 3)) {
-          result = state.magicalGirlFilter.disksRange.acceleRange[0] <= magicalGirl.disk.accele 
-            && magicalGirl.disk.accele <= state.magicalGirlFilter.disksRange.acceleRange[1];
+          result = state.magicalGirlFilter.disksRange.acceleRange[0] <= magicalGirl.Disk.Accele 
+            && magicalGirl.Disk.Accele <= state.magicalGirlFilter.disksRange.acceleRange[1];
         }
         if (result && !(state.magicalGirlFilter.disksRange.blastvRange[0] == 1 && state.magicalGirlFilter.disksRange.blastvRange[1] == 3)) {
-          result = state.magicalGirlFilter.disksRange.blastvRange[0] <= magicalGirl.disk.blastv 
-            && magicalGirl.disk.blastv <= state.magicalGirlFilter.disksRange.blastvRange[1];
+          result = state.magicalGirlFilter.disksRange.blastvRange[0] <= magicalGirl.Disk.Blastv 
+            && magicalGirl.Disk.Blastv <= state.magicalGirlFilter.disksRange.blastvRange[1];
         }
         if (result && !(state.magicalGirlFilter.disksRange.blasthRange[0] == 1 && state.magicalGirlFilter.disksRange.blasthRange[1] == 3)) {
-          result = state.magicalGirlFilter.disksRange.blasthRange[0] <= magicalGirl.disk.blasth 
-            && magicalGirl.disk.blasth <= state.magicalGirlFilter.disksRange.blasthRange[1];
+          result = state.magicalGirlFilter.disksRange.blasthRange[0] <= magicalGirl.Disk.Blasth 
+            && magicalGirl.Disk.Blasth <= state.magicalGirlFilter.disksRange.blasthRange[1];
         }
         if (result && !(state.magicalGirlFilter.disksRange.chargeRange[0] == 1 && state.magicalGirlFilter.disksRange.chargeRange[1] == 3)) {
-          result = state.magicalGirlFilter.disksRange.chargeRange[0] <= magicalGirl.disk.charge 
-            && magicalGirl.disk.charge <= state.magicalGirlFilter.disksRange.chargeRange[1];
+          result = state.magicalGirlFilter.disksRange.chargeRange[0] <= magicalGirl.Disk.Charge 
+            && magicalGirl.Disk.Charge <= state.magicalGirlFilter.disksRange.chargeRange[1];
         }
         return result;
       })
   }
 }
 
+const db = firebase.firestore()
+const fsMagicalGirls = db.collection("private/v1/magicalGirls");
+
 export const actions = {
   fetchMagicalGirls({commit}) {
-    commit('updateMagicalGirls', MAGICAL_GIRLS);
+    fsMagicalGirls.get()
+      .then(res => {
+
+        let mg = []
+        res.forEach((doc) => {
+          mg.push(doc.data())
+        })
+        console.log(mg.length)
+        commit('updateMagicalGirls', mg);
+
+      })
+    .catch(err => {
+      console.log("error : " + err)
+    })
   },
   fetchAttributes({commit}) {
     commit('updateAttributes', ATTRIBUTE_COUNT);
