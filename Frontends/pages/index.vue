@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-row>
-    <MagicalGirlCard :size=12 />
-    <Filter />
+      <MagicalGirlCard :size=12 />
     </v-row>
   </div>
 </template>
