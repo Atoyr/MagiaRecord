@@ -25,6 +25,7 @@ const ATTRIBUTE_COUNT = [
 
 export const state = () => ({
   magicalGirls : [],
+  isLoading : false,
   attributes : [],
   magicalGirlFilter : {
     attributes: [],
@@ -44,8 +45,10 @@ export const mutations = {
     state.magicalGirls = [];
   },
   updateMagicalGirls(state, magicalGirls) {
-    console.log(magicalGirls.length)
     state.magicalGirls = magicalGirls;
+  },
+  updateIsLooading(state, isLoading) {
+    state.isLoading = isLoading;
   },
   updateAttributes(state, attributes) {
     state.attributes = attributes;
@@ -100,14 +103,14 @@ export const actions = {
   fetchMagicalGirls({commit}) {
     fsMagicalGirls.get()
       .then(res => {
-
+        commit('updateIsLooading', true);
         let mg = []
         res.forEach((doc) => {
           mg.push(doc.data())
         })
         console.log(mg.length)
         commit('updateMagicalGirls', mg);
-
+        commit('updateIsLooading', false);
       })
     .catch(err => {
       console.log("error : " + err)

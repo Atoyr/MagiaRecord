@@ -9,6 +9,8 @@
         :headers="headers"
         :items="magicalGirls"
         :locale="ja-JP"
+        :loading="isLoading" 
+        loading-text="Loading... Please wait"
         :items-per-page="10">
         <template v-slot:item.Attribute="{ item }">
           <AttributeImage :attribute="item.Attribute.Key"></AttributeImage>
@@ -39,7 +41,7 @@ export default {
     DiskImage
   },
   computed: {
-    ...mapGetters("magicalGirl",["magicalGirls"])
+    ...mapGetters("magicalGirl",["magicalGirls","isLoading"])
   },
   props: {
     size: Number
