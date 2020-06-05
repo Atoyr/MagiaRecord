@@ -68,6 +68,9 @@ export const getters = {
   attributes(state) {
     return state.attributes;
   },
+  isLoading(state) {
+    return state.isLoading
+  },
   magicalGirls(state) {
     return state.magicalGirls.filter(magicalGirl => {
         return state.magicalGirlFilter.attributes.length === 0 || state.magicalGirlFilter.attributes.includes(magicalGirl.Attribute.Key)

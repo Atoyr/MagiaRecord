@@ -8,7 +8,7 @@
         dense
         :headers="headers"
         :items="magicalGirls"
-        :locale="ja-JP"
+        locale="ja-JP"
         :loading="isLoading" 
         loading-text="Loading... Please wait"
         :items-per-page="10">
