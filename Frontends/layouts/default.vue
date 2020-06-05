@@ -3,6 +3,7 @@
       <v-app-bar 
         dense 
         flat 
+         absolute
         class="toolbar">
         <v-app-bar-nav-icon>
         </v-app-bar-nav-icon>
@@ -46,7 +47,7 @@ export default {
 }
 
 .container {
-  margin: 0;
+  margin-top: 32px;
 }
 
 .toolbar-card{
@@ -56,8 +57,6 @@ export default {
 
 .toolbar {
   background: linear-gradient(#f399a3,#e95591,#e62a7f);
-  margin:0;
-  padding:0;
 }
 
 </style>
