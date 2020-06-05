@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 
 	firebase "firebase.google.com/go"
 	"github.com/atoyr/MagiaRecord/store/models"
@@ -14,9 +16,22 @@ import (
 )
 
 func main() {
+	flag.Parse()
+	if flag.NArg() != 1 {
+		fmt.Println("firebase key file not set")
+		return
+	}
+	args := flag.Args()
+	file := args[0]
+	_, err := os.Stat(file)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	// Use a service account
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("./_magia-record-database.json")
+	sa := option.WithCredentialsFile(file)
 	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalf("Failed to 1: %v", err)
