@@ -11,11 +11,12 @@
         locale="ja-JP"
         :loading="isLoading" 
         loading-text="Loading... Please wait"
+        multi-sort
         :items-per-page="10">
         <template v-slot:item.Attribute="{ item }">
           <AttributeImage :attribute="item.Attribute.Key"></AttributeImage>
         </template>
-        <template v-slot:item.Type="{ item }">
+        <template v-slot:item.isLimited="{ item }">
           <p>{{Type.Name}}</p>
         </template>
         <template v-slot:item.Disk="{ item }">
