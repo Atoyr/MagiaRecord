@@ -16,8 +16,8 @@
         <template v-slot:item.Attribute="{ item }">
           <AttributeImage :attribute="item.Attribute.Key"></AttributeImage>
         </template>
-        <template v-slot:item.isLimited="{ item }">
-          <p>{{Type.Name}}</p>
+        <template v-slot:item.IsLimited="{ item }">
+          <v-icon v-if="item.IsLimited">mdi-check</v-icon>
         </template>
         <template v-slot:item.Disk="{ item }">
           <DiskImage 
@@ -75,7 +75,17 @@ export default {
           sortable: true,
           value: 'IsLimited',
         },
-        { text: '属性', value: 'Attribute' },
+        { text: '属性', value: 'Attribute',
+          sortable: true,
+          sort: (a,b) => {
+            if( a.Key > b.Key) {
+              return 1
+            }else if (a.Key == b.Key) {
+              return 0
+            }
+            return -1
+          }
+        },
         { text: 'タイプ', value: 'Type.Name' },
         { text: 'Disk', value: 'Disk' },
         { text: 'HP', value: 'Status.Hp' },
