@@ -52,7 +52,7 @@ export default {
         {id:4 ,key: "magia" , name: "マギア"},
         {id:5 ,key: "support" , name: "サポート"},
         {id:6 ,key: "heal" , name: "ヒール"},
-        {id:7 ,key: "ultimet" , name: "アルティメット"},
+        {id:7 ,key: "ultimate" , name: "アルティメット"},
         {id:8 ,key: "ring magia" , name: "円環マギア"},
         {id:9 ,key: "ring support" , name: "円環サポート"},
         ]
