@@ -26,6 +26,9 @@
             :blasth="item.Disk.Blasth"
             :charge="item.Disk.Charge"></DiskImage>
         </template>
+        <template v-slot:item.maxRare="{ item }">
+          <RareIcon :maxRare="item.MaxRare" size='small'> </RareIcon>
+        </template>
       </v-data-table>
     </v-card>
   </v-col>
@@ -35,11 +38,13 @@
 import { mapGetters} from 'vuex'
 import AttributeImage from '@/components/AttributeImage.vue'
 import DiskImage from '@/components/DiskImage.vue'
+import RareIcon from '@/components/RareIcon.vue'
 
 export default {
   components : {
     AttributeImage,
-    DiskImage
+    DiskImage,
+    RareIcon
   },
   computed: {
     ...mapGetters("magicalGirl",["magicalGirls","isLoading"])
@@ -68,6 +73,12 @@ export default {
           align: 'start',
           sortable: true,
           value: 'Version',
+        },
+        {
+          text: '最大レアリティ',
+          align: 'start',
+          sortable: true,
+          value: 'maxRare',
         },
         {
           text: '限定',
