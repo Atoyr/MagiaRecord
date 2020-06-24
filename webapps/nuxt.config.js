@@ -1,8 +1,16 @@
+const { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID, FIREBASE_MEASUREMENT_ID } = process.env;
 
 export default {
   mode: 'spa',
   env : {
-    bffUrl: process.env.BFF_URL || 'http://localhost:3000'
+    FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN,
+    FIREBASE_DATABASE_URL,
+    FIREBASE_PROJECT_ID,
+    FIREBASE_STORAGE_BUCKET,
+    FIREBASE_MESSAGING_SENDER_ID,
+    FIREBASE_APP_ID,
+    FIREBASE_MEASUREMENT_ID
   },
   /*
   ** Headers of the page
@@ -42,6 +50,9 @@ export default {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    // Simple usage
+    '@nuxtjs/dotenv',
+    // With options
   ],
   /*
   ** Nuxt.js modules
