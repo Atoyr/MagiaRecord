@@ -2,6 +2,7 @@ const { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_DATABASE_URL, FIREBASE_
 
 export default {
   mode: 'spa',
+  srcDir: 'webapps',
   env : {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
