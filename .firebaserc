@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "magia-record-portal-fe597"
+    "release": "magia-record-portal-fe597",
+    "develop": "magia-record-portal-test"
   }
 }
